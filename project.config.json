@@ -1,7 +1,7 @@
 {
   "appid": "wxc4c81c4a7007599f",
   "compileType": "miniprogram",
-  "libVersion": "3.7.8",
+  "libVersion": "3.6.6",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -20,7 +20,18 @@
       "outputPath": ""
     },
     "rpxUnit": 0.5,
-    "compileWorklet": true
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "condition": {},
   "editorSetting": {
@@ -28,5 +39,6 @@
     "tabSize": 2
   },
   "cloudfunctionRoot": "cloudfunctions/",
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "simulatorPluginLibVersion": {}
 }

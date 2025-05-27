@@ -1,0 +1,29 @@
+<nav-bar title="睡眠" id="navBar"></nav-bar>
+
+<view class="container" style="padding-top: {{navBarHeight}}px;">
+  <!-- 标题区 -->
+  <view class="header-section">
+    <view class="header-text">
+      <view class="main-title">夜深了</view>
+      <view class="sub-title">
+        春风拂过，万物复苏，每一片新叶都在诉说生长的力量。这是一个崭新的起点，泥土中的种子正破土而出，正如你心中蛰伏的梦想——只要向上，必有回响。
+      </view>
+    </view>
+    <view class="header-icon">
+      <image src="/assets/moon.png" mode="aspectFill" />
+    </view>
+  </view>
+
+  <!-- 音频列表区 -->
+  <view class="audio-list">
+    <!-- 这里后续用wx:for渲染音频item -->
+    <view class="audio-item"></view>
+    <view class="audio-item"></view>
+    <!-- ... -->
+  </view>
+
+  <!-- 播放器区 -->
+  <view class="player-section">
+    <!-- 播放器内容后续补充 -->
+  </view>
+</view>
