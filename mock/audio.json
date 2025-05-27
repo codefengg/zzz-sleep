@@ -5,7 +5,7 @@
             "name": "绵绵细雨",
             "icon": "/assets/mock-icons/fine-rain.png",
             "listImage": "",
-            "backgroundImage": "/assets/mock-back/fine-rain.png",
+            "backgroundImage": "/assets/mock-back/fine-rain-back.png",
             "audioUrl": ""
         },
         {
@@ -13,7 +13,7 @@
             "name": "倾盆大雨",
             "icon": "/assets/mock-icons/thunderstorm.png",
             "listImage": "",
-            "backgroundImage": "/assets/mock-back/thunderstorm.png",
+            "backgroundImage": "/assets/mock-back/thunderstorm-back.png",
             "audioUrl": ""
         },
         {
@@ -21,7 +21,7 @@
             "name": "浪花涌动",
             "icon": "/assets/mock-icons/wave.png",
             "listImage": "",
-            "backgroundImage": "/assets/mock-back/wave.png",
+            "backgroundImage": "/assets/mock-back/wave-back.png",
             "audioUrl": ""
         },
         {
@@ -29,7 +29,7 @@
             "name": "篝火燃烧",
             "icon": "/assets/mock-icons/campfire.png",
             "listImage": "",
-            "backgroundImage": "/assets/mock-back/campfire.png",
+            "backgroundImage": "/assets/mock-back/campfire-back.png",
             "audioUrl": ""
         },
         {
@@ -37,7 +37,7 @@
             "name": "稻田乐章",
             "icon": "/assets/mock-icons/rice-field.png",
             "listImage": "",
-            "backgroundImage": "/assets/mock-back/rice-field.png",
+            "backgroundImage": "/assets/mock-back/rice-field-back.png",
             "audioUrl": ""
         }
     ]

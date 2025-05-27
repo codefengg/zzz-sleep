@@ -19,10 +19,30 @@
 
   <!-- 音频列表区 -->
   <view class="audio-list">
-    <!-- 这里后续用wx:for渲染音频item -->
-    <view class="audio-item"></view>
-    <view class="audio-item"></view>
-    <!-- ... -->
+    <block wx:for="{{audioList}}" wx:key="id">
+      <view 
+        class="audio-item" 
+        style="width:{{itemWidth}}px;height:{{itemWidth}}px"
+        bindtap="onTapAudioItem"
+        data-id="{{item.id}}"
+      >
+        <view class="audio-item-inner">
+          <image 
+            class="audio-item-bg" 
+            src="{{item.backgroundImage || '/assets/default-bg.jpg'}}" 
+            mode="aspectFill"
+          ></image>
+          <view class="audio-item-content">
+            <image 
+              class="audio-item-icon" 
+              src="{{item.icon}}" 
+              mode="aspectFit"
+            ></image>
+            <view class="audio-item-name">{{item.name}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
   </view>
 
   <!-- 播放器区 -->
