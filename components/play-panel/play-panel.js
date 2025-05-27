@@ -10,7 +10,7 @@ Component({
     },
     backgroundColor: {
       type: String,
-      value: 'rgba(17, 18, 29, 0.95)'
+      value: 'rgba(40, 41, 55, 1)'
     }
   },
 
@@ -45,12 +45,14 @@ Component({
       const navBarHeight = menuButtonInfo.height + (menuButtonInfo.top - statusBarHeight) * 2;
       
       // 计算迷你播放器高度（根据设计稿比例计算）
-      const miniPlayerHeight = 100 / (375 / screenWidth);
+      const miniPlayerHeight = 100;
       
       // 判断是否是全面屏
       const isFullScreen = systemInfo.screenHeight > systemInfo.windowHeight;
       // 底部安全区高度
       const safeAreaBottom = isFullScreen ? 34 : 0;
+
+      console.log('safeAreaBottom===', safeAreaBottom);
       
       // 设置面板位置
       this.setData({

@@ -51,8 +51,8 @@
     bind:progresschange="onPlayerProgressChange">
     
     <!-- 迷你播放器内容 -->
-    <view slot="mini-player" class="mini-player-content">
-      <view class="mini-player-info">
+    <view class="mini-player-content">
+      <!-- <view class="mini-player-info">
         <image class="mini-player-cover" src="{{currentAudio.backgroundImage}}" mode="aspectFill"></image>
         <view class="mini-player-text">
           <view class="mini-player-name">{{currentAudio.name}}</view>
@@ -61,7 +61,13 @@
       </view>
       <view class="mini-player-controls">
         <view class="play-button {{isPlaying ? 'playing' : ''}}" catchtap="togglePlay"></view>
+      </view> -->
+      <view class="mini-player-content-inner">
+        <view class="mini-player-inner-left">
+          
+        </view>
       </view>
+      <view class="mini-player-content-time"></view>
     </view>
     
     <!-- 全屏播放器内容 -->

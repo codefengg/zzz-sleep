@@ -23,7 +23,7 @@
     <view class="panel-content {{disableAnimated ? '' : 'animated'}} {{isExpanded ? 'expanded' : ''}}">
       <!-- 迷你播放器内容 -->
       <view class="mini-player" hidden="{{isExpanded}}">
-        <slot name="mini-player"></slot>
+        <slot></slot>
       </view>
       
       <!-- 展开后的播放器内容 -->
