@@ -1,0 +1,35 @@
+<!-- components/play-panel/play-panel.wxml -->
+<movable-area class="panel-area">
+  <movable-view 
+    class="panel-wrapper"
+    bindchange="onPanelChange" 
+    bindtouchend="dragPanelEnd" 
+    bindtouchstart="dragPanelStart"
+    direction="vertical" 
+    damping="40" 
+    friction="1" 
+    inertia="{{false}}" 
+    outOfBounds="{{false}}" 
+    x="0" 
+    y="{{panelPosition}}"
+    style="background-color: {{backgroundColor}}; {{customStyle}}"
+  >
+    <!-- 顶部下拉提示条 -->
+    <view class="drag-handle {{isExpanded ? 'expanded' : ''}}" catchtap="togglePanel">
+      <view class="drag-bar"></view>
+    </view>
+    
+    <!-- 面板内容区 -->
+    <view class="panel-content {{disableAnimated ? '' : 'animated'}} {{isExpanded ? 'expanded' : ''}}">
+      <!-- 迷你播放器内容 -->
+      <view class="mini-player" hidden="{{isExpanded}}">
+        <slot name="mini-player"></slot>
+      </view>
+      
+      <!-- 展开后的播放器内容 -->
+      <view class="full-player" hidden="{{!isExpanded}}">
+        <slot name="full-player"></slot>
+      </view>
+    </view>
+  </movable-view>
+</movable-area> 

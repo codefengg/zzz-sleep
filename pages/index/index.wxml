@@ -45,8 +45,61 @@
     </block>
   </view>
 
-  <!-- 播放器区 -->
-  <view class="player-section">
-    <!-- 播放器内容后续补充 -->
-  </view>
+  <!-- 使用play-panel组件 -->
+  <play-panel 
+    bind:statechange="onPlayerStateChange"
+    bind:progresschange="onPlayerProgressChange">
+    
+    <!-- 迷你播放器内容 -->
+    <view slot="mini-player" class="mini-player-content">
+      <view class="mini-player-info">
+        <image class="mini-player-cover" src="{{currentAudio.backgroundImage}}" mode="aspectFill"></image>
+        <view class="mini-player-text">
+          <view class="mini-player-name">{{currentAudio.name}}</view>
+          <view class="mini-player-time">{{currentTime}}/{{duration}}</view>
+        </view>
+      </view>
+      <view class="mini-player-controls">
+        <view class="play-button {{isPlaying ? 'playing' : ''}}" catchtap="togglePlay"></view>
+      </view>
+    </view>
+    
+    <!-- 全屏播放器内容 -->
+    <view slot="full-player" class="full-player-content">
+      <view class="full-player-header">
+        <view class="full-player-title">正在播放</view>
+      </view>
+      
+      <view class="full-player-cover-wrapper">
+        <image class="full-player-cover {{isPlaying ? 'rotating' : ''}}" 
+          src="{{currentAudio.backgroundImage}}" mode="aspectFill"></image>
+      </view>
+      
+      <view class="full-player-info">
+        <view class="full-player-name">{{currentAudio.name}}</view>
+      </view>
+      
+      <view class="full-player-progress">
+        <view class="time-info">
+          <text class="current-time">{{currentTime}}</text>
+          <text class="duration">{{duration}}</text>
+        </view>
+        <slider 
+          class="progress-slider" 
+          block-size="12" 
+          activeColor="#ffffff" 
+          backgroundColor="rgba(255,255,255,0.2)" 
+          value="{{sliderValue}}"
+          bindchange="onSliderChange"
+        ></slider>
+      </view>
+      
+      <view class="full-player-controls">
+        <view class="control-button prev-button"></view>
+        <view class="control-button play-button {{isPlaying ? 'playing' : ''}}" catchtap="togglePlay"></view>
+        <view class="control-button next-button"></view>
+      </view>
+    </view>
+    
+  </play-panel>
 </view>
