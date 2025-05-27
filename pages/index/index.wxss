@@ -3,7 +3,23 @@
   min-height: 100vh;
   padding-left: 48rpx;
   padding-right: 48rpx;
-  box-sizing: border-box;
+  position: relative;
+}
+
+.background-image {
+  position: absolute;
+  width: 750rpx;
+  height: 412rpx;
+  top: 408rpx;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 确保其他元素在背景之上 */
+.header-section, .audio-list, .player-section {
+  position: relative;
+  z-index: 2;
 }
 
 .page-title {
@@ -18,7 +34,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-top: 60rpx;
+  margin-top: 48rpx;
 }
 
 .header-text {
@@ -26,6 +42,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: 22rpx;
 }
 
 .main-title {
@@ -35,20 +52,68 @@
 }
 
 .sub-title {
-  font-size: 28rpx;
-  color: rgba(255,255,255,0.5);
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.4);
   margin-top: 24rpx;
+  line-height: 1.6;
 }
 
-.header-icon {
+.moon {
   width: 124rpx;
   height: 124rpx;
-  background: rgba(217,217,217,1);
+  background: #9CAEC8;
   border-radius: 50%;
-  margin-left: 24rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 60rpx 28rpx 0;
+  position: relative;
+}
+
+.moon::before {
+  content: '';
+  position: absolute;
+  width: 124rpx;
+  height: 124rpx;
+  border-radius: 50%;
+  background-color: #11121D;
+  animation: moonEclipse 10s infinite linear;
+  transform-origin: center center;
+  transform: translate(-75%, -75%);
+}
+
+@keyframes moonEclipse {
+  0%, 5% {
+    transform: translate(-75%, -75%);
+  }
+  10% {
+    transform: translate(-70%, -70%);
+  }
+  15% {
+    transform: translate(-65%, -65%);
+  }
+  20% {
+    transform: translate(-60%, -60%);
+  }
+  25% {
+    transform: translate(-55%, -55%);
+  }
+  30% {
+    transform: translate(-50%, -50%);
+  }
+  35% {
+    transform: translate(-45%, -45%);
+  }
+  40% {
+    transform: translate(-40%, -40%);
+  }
+  45% {
+    transform: translate(-35%, -35%);
+  }
+  50% {
+    transform: translate(-30%, -30%);
+  }
+  /* 最大食月状态 - 在此停留50%的时间 */
+  55%, 100% {
+    transform: translate(-25%, -25%);
+  }
 }
 
 .audio-list {

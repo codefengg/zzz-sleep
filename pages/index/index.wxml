@@ -1,6 +1,9 @@
 <nav-bar title="睡眠" id="navBar"></nav-bar>
 
 <view class="container" style="padding-top: {{navBarHeight}}px;">
+  <!-- 背景图片 -->
+  <image class="background-image" src="../../assets/background-vector.png"></image>
+  
   <!-- 标题区 -->
   <view class="header-section">
     <view class="header-text">
@@ -10,7 +13,7 @@
       </view>
     </view>
     <view class="header-icon">
-      <image src="/assets/moon.png" mode="aspectFill" />
+      <view class="moon"></view>
     </view>
   </view>
 
