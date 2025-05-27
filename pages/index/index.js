@@ -4,19 +4,16 @@ const navBarHeight = menuButton.top + menuButton.height;
 
 // 计算音频列表项的宽度
 let itemWidth = 0;
-wx.getSystemInfo({
-  success(res) {
-    // 计算每个item的宽度：(屏幕宽度 - (左右padding*2) - 中间间距) / 2
-    const screenWidth = res.windowWidth;
+const windowInfo = wx.getWindowInfo(); // 直接同步获取
+const screenWidth = windowInfo.windowWidth; // 使用可用窗口宽度
+const windowHeight = windowInfo.windowHeight; // 获取窗口高度
 
-    // 计算rpx与px的比例
-    const ratio = 750 / screenWidth;
-    const paddingPx = (48 * 2) / ratio; // 左右padding换算为px
-    const itemSpacePx = 56 / ratio;     // 间距换算为px
+// 计算rpx与px的比例（750rpx = 屏幕宽度px）
+const ratio = 750 / screenWidth;
+const paddingPx = (48 * 2) / ratio;  // 左右padding换算为px
+const itemSpacePx = 56 / ratio;      // 间距换算为px
 
-    itemWidth = (screenWidth - paddingPx - itemSpacePx) / 2;
-  }
-});
+itemWidth = (screenWidth - paddingPx - itemSpacePx) / 2;
 
 const audioList = [
   {
