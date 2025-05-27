@@ -1,0 +1,8 @@
+<!-- components/play-toggle/play-toggle.wxml -->
+<view class="play-toggle-container" style="{{customStyle}}" bindtap="togglePlay">
+  <image 
+    class="play-icon {{playing ? 'playing' : ''}}" 
+    src="/assets/polygon.png" 
+    mode="aspectFit"
+  ></image>
+</view> 

@@ -59,7 +59,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0 32rpx;
 }
 
 /* 全屏播放器样式 */

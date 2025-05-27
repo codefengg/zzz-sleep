@@ -1,0 +1,23 @@
+/* components/play-toggle/play-toggle.wxss */
+.play-toggle-container {
+  width: 98rpx;
+  height: 98rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.play-icon {
+  width: 44rpx;
+  height: 34rpx;
+}
+
+/* 播放状态的样式 - 暂时使用相同图标，后续可以添加不同样式 */
+.play-icon.playing {
+  /* 如果UI提供了暂停图标，可以在这里修改 */
+  /* 暂时添加一点变化以区分播放状态 */
+  opacity: 0.7;
+} 

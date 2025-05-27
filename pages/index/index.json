@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "nav-bar": "/components/nav-bar/nav-bar",
-    "play-panel": "/components/play-panel/play-panel"
+    "play-panel": "/components/play-panel/play-panel",
+    "play-toggle": "/components/play-toggle/play-toggle"
   }
 } 

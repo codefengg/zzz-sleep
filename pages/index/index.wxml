@@ -52,59 +52,26 @@
     
     <!-- 迷你播放器内容 -->
     <view class="mini-player-content">
-      <!-- <view class="mini-player-info">
-        <image class="mini-player-cover" src="{{currentAudio.backgroundImage}}" mode="aspectFill"></image>
-        <view class="mini-player-text">
-          <view class="mini-player-name">{{currentAudio.name}}</view>
-          <view class="mini-player-time">{{currentTime}}/{{duration}}</view>
+      <!-- 左侧播放区域 -->
+      <view class="mini-player-left">
+        <!-- 播放/暂停按钮 -->
+        <play-toggle playing="{{isPlaying}}" bind:toggle="togglePlay"></play-toggle>
+        
+        <!-- 音频信息 -->
+        <view class="mini-player-info">
+          <view class="mini-player-name">绵绵细雨</view>
+          <view class="mini-player-timer">29:00</view>
         </view>
       </view>
-      <view class="mini-player-controls">
-        <view class="play-button {{isPlaying ? 'playing' : ''}}" catchtap="togglePlay"></view>
-      </view> -->
-      <view class="mini-player-content-inner">
-        <view class="mini-player-inner-left">
-          
-        </view>
+      
+      <!-- 右侧倒计时按钮 -->
+      <view class="mini-player-right" bindtap="showTimerPicker">
+        <image class="timer-icon" src="/assets/union.png" mode="aspectFit"></image>
       </view>
-      <view class="mini-player-content-time"></view>
     </view>
     
     <!-- 全屏播放器内容 -->
     <view slot="full-player" class="full-player-content">
-      <view class="full-player-header">
-        <view class="full-player-title">正在播放</view>
-      </view>
-      
-      <view class="full-player-cover-wrapper">
-        <image class="full-player-cover {{isPlaying ? 'rotating' : ''}}" 
-          src="{{currentAudio.backgroundImage}}" mode="aspectFill"></image>
-      </view>
-      
-      <view class="full-player-info">
-        <view class="full-player-name">{{currentAudio.name}}</view>
-      </view>
-      
-      <view class="full-player-progress">
-        <view class="time-info">
-          <text class="current-time">{{currentTime}}</text>
-          <text class="duration">{{duration}}</text>
-        </view>
-        <slider 
-          class="progress-slider" 
-          block-size="12" 
-          activeColor="#ffffff" 
-          backgroundColor="rgba(255,255,255,0.2)" 
-          value="{{sliderValue}}"
-          bindchange="onSliderChange"
-        ></slider>
-      </view>
-      
-      <view class="full-player-controls">
-        <view class="control-button prev-button"></view>
-        <view class="control-button play-button {{isPlaying ? 'playing' : ''}}" catchtap="togglePlay"></view>
-        <view class="control-button next-button"></view>
-      </view>
     </view>
     
   </play-panel>
