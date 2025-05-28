@@ -1,5 +1,8 @@
 // components/play-panel/play-panel.js
 Component({
+  options: {
+    multipleSlots: true
+  },
   /**
    * 组件的属性列表
    */
@@ -51,9 +54,7 @@ Component({
       const isFullScreen = systemInfo.screenHeight > systemInfo.windowHeight;
       // 底部安全区高度
       const safeAreaBottom = isFullScreen ? 34 : 0;
-
-      console.log('safeAreaBottom===', safeAreaBottom);
-      
+            
       // 设置面板位置
       this.setData({
         topPosition: statusBarHeight + navBarHeight,

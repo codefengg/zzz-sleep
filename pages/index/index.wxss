@@ -225,9 +225,74 @@
 .full-player-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100%;
-  padding: 20rpx 0;
+  position: relative;
+}
+
+.full-player-cover-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  overflow: hidden; /* 确保内容不会溢出 */
+}
+
+.full-player-cover-back{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 确保图片正确填充容器 */
+  /* 移除直接应用于图片的模糊效果 */
+  filter: none;
+  transform: none;
+}
+
+/* 专门的模糊层 */
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px); /* 增加模糊强度 */
+  -webkit-backdrop-filter: blur(20px);
+  /* background-color: rgba(17, 18, 29, 0.4); */
+  z-index: 2;
+}
+
+.full-player-content-con{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transform: translateY(-40%);
+}
+
+.full-player-cover-icon{
+  width: 230rpx;
+  height: 230rpx;
+  margin-bottom: 64rpx;
+}
+
+.full-player-content-con-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-player-content-con-text-title{
+  font-size: 40rpx;
+  color: rgba(255, 255, 255, 1);
+}
+
+.full-player-content-con-text-timer{
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .full-player-header {
