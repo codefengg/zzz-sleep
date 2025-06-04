@@ -51,9 +51,9 @@
     <view slot="full-player" class="full-player-content">
       <view class="full-player-cover-container">
         <!-- 原始背景图 -->
-        <!-- <image class="full-player-cover-back" src="/assets/mock-back/fine-rain-back.png" mode="aspectFill"></image> -->
+        <image class="full-player-cover-back" src="/assets/mock-back/fine-rain-back.png" mode="aspectFill"></image>
         <!-- 模糊层 -->
-        <view class="blur-overlay"></view>
+        <!-- <view class="blur-overlay"></view> -->
       </view>
       <view class="full-player-content-con">
         <image class="full-player-cover-icon" src="/assets/mock-icons/thunderstorm.png" mode="aspectFit"></image>
