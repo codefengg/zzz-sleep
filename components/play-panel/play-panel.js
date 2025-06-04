@@ -32,7 +32,9 @@ Component({
     // 禁用动画标志
     disableAnimated: false,
     // 是否展开
-    isExpanded: false
+    isExpanded: false,
+    // 是否正在拖动中
+    isDragging: false
   },
 
   lifetimes: {
@@ -75,6 +77,12 @@ Component({
         const { pageY } = changedTouches[0];
         this.dragOrigin = pageY;
       }
+      
+      // 设置拖动标志，启用过渡层
+      this.setData({
+        isDragging: true,
+        disableAnimated: true
+      });
     },
     
     // 拖动结束
@@ -99,10 +107,13 @@ Component({
         finalPosition = distance < -threshold ? topPosition : bottomPosition;
       }
       
-      // 更新面板位置和展开状态
+      // 设置最终状态，同时禁用过渡层
       this.setData({
         panelPosition: finalPosition,
-        isExpanded: finalPosition === topPosition
+        isExpanded: finalPosition === topPosition,
+        isDragging: false,
+        disableAnimated: false,
+        presentProgress: finalPosition === topPosition ? 1 : 0
       });
       
       // 触发事件通知父组件状态变化
@@ -125,11 +136,31 @@ Component({
     
     // 面板位置变化处理
     onPanelChange(e) {
+      // 如果不是拖动状态，忽略处理
+      if (!this.data.isDragging) return;
+      
       const { y } = e.detail;
       const { topPosition, bottomPosition } = this.data;
       
-      // 计算展开进度（0-1之间）
-      const progress = 1 - ((y - topPosition) / (bottomPosition - topPosition));
+      // 计算有效滑动距离（只在70%距离内完成过渡）
+      const totalDistance = bottomPosition - topPosition;
+      const effectiveDistance = totalDistance * 0.7;
+      
+      // 计算当前距离顶部的距离
+      const currentDistance = y - topPosition;
+      
+      // 计算进度值
+      let progress;
+      if (currentDistance <= 0) {
+        progress = 1; // 超过顶部
+      } else if (currentDistance >= effectiveDistance) {
+        progress = 0; // 超过有效距离
+      } else {
+        // 在有效范围内线性计算
+        progress = 1 - (currentDistance / effectiveDistance);
+      }
+      
+      // 确保进度值在0-1范围内
       const roundedProgress = Math.max(0, Math.min(1, progress));
       
       if (roundedProgress !== this.data.presentProgress) {
@@ -140,22 +171,6 @@ Component({
         // 向父组件报告进度变化
         this.triggerEvent('progresschange', { progress: roundedProgress });
       }
-      
-      // 禁用动画以避免拖动时的卡顿
-      if (!this.data.disableAnimated) {
-        this.setData({
-          disableAnimated: true
-        });
-      }
-      
-      // 延迟恢复动画
-      clearTimeout(this.recoverAnimation);
-      this.recoverAnimation = setTimeout(() => {
-        this.setData({
-          disableAnimated: false
-        });
-        this.recoverAnimation = null;
-      }, 100);
     }
   }
 }) 

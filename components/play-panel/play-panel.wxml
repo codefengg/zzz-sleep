@@ -26,6 +26,19 @@
         <slot></slot>
       </view>
       
+      <!-- 中间过渡层 - 只在拖动过程中显示 -->
+      <block wx:if="{{isDragging}}">
+        <!-- 迷你播放器淡出层 -->
+        <view class="mini-player transition-layer" style="opacity: {{1 - presentProgress}};">
+          <slot></slot>
+        </view>
+        
+        <!-- 全屏播放器淡入层 -->
+        <view class="full-player transition-layer" style="opacity: {{presentProgress}};">
+          <slot name="full-player"></slot>
+        </view>
+      </block>
+      
       <!-- 展开后的播放器内容 -->
       <view class="full-player" hidden="{{!isExpanded}}">
         <slot name="full-player"></slot>
