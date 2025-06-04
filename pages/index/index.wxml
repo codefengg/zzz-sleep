@@ -51,7 +51,7 @@
     <view slot="full-player" class="full-player-content">
       <view class="full-player-cover-container">
         <!-- 原始背景图 -->
-        <image class="full-player-cover-back" src="/assets/mock-back/fine-rain-back.png" mode="aspectFill"></image>
+        <!-- <image class="full-player-cover-back" src="/assets/mock-back/fine-rain-back.png" mode="aspectFill"></image> -->
         <!-- 模糊层 -->
         <view class="blur-overlay"></view>
       </view>

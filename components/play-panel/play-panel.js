@@ -34,7 +34,13 @@ Component({
     // 是否展开
     isExpanded: false,
     // 是否正在拖动中
-    isDragging: false
+    isDragging: false,
+    // 过渡临界点距离底部的固定距离（单位rpx）
+    transitionThreshold: 300,
+    // 计算得到的过渡临界点的绝对位置
+    transitionPoint: 0,
+    // 过渡区间范围（单位rpx）- 在这个范围内完成从0到1的过渡
+    transitionRange: 300
   },
 
   lifetimes: {
@@ -56,12 +62,24 @@ Component({
       const isFullScreen = systemInfo.screenHeight > systemInfo.windowHeight;
       // 底部安全区高度
       const safeAreaBottom = isFullScreen ? 34 : 0;
+      
+      // 计算临界点距离和过渡范围（将rpx转为px）
+      const thresholdPx = this.data.transitionThreshold * (screenWidth / 750);
+      const rangePx = this.data.transitionRange * (screenWidth / 750);
+      
+      // 底部位置
+      const bottomPos = screenHeight - safeAreaBottom - miniPlayerHeight;
+      
+      // 计算过渡临界点的绝对位置（距离底部固定距离的位置）
+      const transitionPoint = bottomPos - thresholdPx;
             
       // 设置面板位置
       this.setData({
         topPosition: statusBarHeight + navBarHeight,
-        bottomPosition: screenHeight - safeAreaBottom - miniPlayerHeight,
-        panelPosition: screenHeight - safeAreaBottom - miniPlayerHeight
+        bottomPosition: bottomPos,
+        panelPosition: bottomPos,
+        transitionPoint: transitionPoint,
+        transitionRangePx: rangePx
       });
     }
   },
@@ -140,24 +158,24 @@ Component({
       if (!this.data.isDragging) return;
       
       const { y } = e.detail;
-      const { topPosition, bottomPosition } = this.data;
+      const { transitionPoint, transitionRangePx } = this.data;
       
-      // 计算有效滑动距离（只在70%距离内完成过渡）
-      const totalDistance = bottomPosition - topPosition;
-      const effectiveDistance = totalDistance * 0.7;
+      // 计算过渡区间的上下边界
+      const upperBound = transitionPoint - transitionRangePx / 2;
+      const lowerBound = transitionPoint + transitionRangePx / 2;
       
-      // 计算当前距离顶部的距离
-      const currentDistance = y - topPosition;
-      
-      // 计算进度值
+      // 计算平滑过渡的进度值
       let progress;
-      if (currentDistance <= 0) {
-        progress = 1; // 超过顶部
-      } else if (currentDistance >= effectiveDistance) {
-        progress = 0; // 超过有效距离
+      
+      if (y <= upperBound) {
+        // 在上边界之上，保持完全显示展开内容
+        progress = 1;
+      } else if (y >= lowerBound) {
+        // 在下边界之下，保持完全显示迷你内容
+        progress = 0;
       } else {
-        // 在有效范围内线性计算
-        progress = 1 - (currentDistance / effectiveDistance);
+        // 在过渡区间内，线性计算进度
+        progress = 1 - ((y - upperBound) / transitionRangePx);
       }
       
       // 确保进度值在0-1范围内
