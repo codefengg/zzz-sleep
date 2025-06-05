@@ -106,13 +106,20 @@ Component({
         finalPosition = distance < -threshold ? topPosition : bottomPosition;
       }
       
-      // 设置最终状态
+      // 只设置位置和状态，不设置presentProgress，让它在动画过程中自然变化
       this.setData({
         panelPosition: finalPosition,
-        isExpanded: finalPosition === topPosition,
-        isDragging: false,
-        presentProgress: finalPosition === topPosition ? 1 : 0
+        isExpanded: finalPosition === topPosition
       });
+      
+      // 延迟关闭拖拽状态，让movable-view动画完成后再切换到静态层
+      setTimeout(() => {
+        this.setData({
+          isDragging: false,
+          // 在动画完成后设置最终的presentProgress值
+          presentProgress: this.data.isExpanded ? 1 : 0
+        });
+      }, 300); // 等待动画完成（通常250-300ms）
       
       // 触发事件通知父组件状态变化
       this.triggerEvent('statechange', { isExpanded: this.data.isExpanded });
@@ -142,7 +149,7 @@ Component({
       const { transitionPoint } = this.data;
       
       // 过渡区间范围（120px）
-      const transitionRange = 120;
+      const transitionRange = 180;
       const upperBound = transitionPoint - transitionRange / 2;
       const lowerBound = transitionPoint + transitionRange / 2;
       
@@ -159,7 +166,8 @@ Component({
       // 确保进度值在0-1范围内
       const roundedProgress = Math.max(0, Math.min(1, progress));
       
-      if (roundedProgress !== this.data.presentProgress) {
+      // 只在进度确实发生变化时才更新，减少不必要的setData
+      if (Math.abs(roundedProgress - this.data.presentProgress) > 0.01) {
         this.setData({
           presentProgress: roundedProgress
         });
