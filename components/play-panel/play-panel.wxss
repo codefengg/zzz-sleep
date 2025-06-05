@@ -16,7 +16,6 @@
   overflow: hidden;
   box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.15);
   pointer-events: auto;
-  /* background-color: rgba(40, 41, 55, 1); */
   background-color: #fff;
   position: relative;
 }
@@ -52,11 +51,6 @@
   height: calc(100% - 48rpx);
   overflow: hidden;
   position: relative;
-}
-
-/* 动画效果 */
-.animated {
-  transition: opacity 0.3s, transform 0.3s;
 }
 
 /* 迷你播放器样式 */

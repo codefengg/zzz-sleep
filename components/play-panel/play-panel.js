@@ -35,12 +35,8 @@ Component({
     isExpanded: false,
     // 是否正在拖动中
     isDragging: false,
-    // 过渡临界点距离底部的固定距离（单位rpx）
-    transitionThreshold: 300,
-    // 计算得到的过渡临界点的绝对位置
-    transitionPoint: 0,
-    // 过渡区间范围（单位rpx）- 在这个范围内完成从0到1的过渡
-    transitionRange: 300
+    // 过渡临界点的绝对位置
+    transitionPoint: 0
   },
 
   lifetimes: {
@@ -48,14 +44,13 @@ Component({
       // 获取系统信息
       const systemInfo = wx.getSystemInfoSync();
       const screenHeight = systemInfo.screenHeight;
-      const screenWidth = systemInfo.screenWidth;
       
       // 获取胶囊按钮位置信息
       const menuButtonInfo = wx.getMenuButtonBoundingClientRect();
       const statusBarHeight = systemInfo.statusBarHeight;
       const navBarHeight = menuButtonInfo.height + (menuButtonInfo.top - statusBarHeight) * 2;
       
-      // 计算迷你播放器高度（根据设计稿比例计算）
+      // 计算迷你播放器高度
       const miniPlayerHeight = 100;
       
       // 判断是否是全面屏
@@ -63,23 +58,18 @@ Component({
       // 底部安全区高度
       const safeAreaBottom = isFullScreen ? 34 : 0;
       
-      // 计算临界点距离和过渡范围（将rpx转为px）
-      const thresholdPx = this.data.transitionThreshold * (screenWidth / 750);
-      const rangePx = this.data.transitionRange * (screenWidth / 750);
-      
       // 底部位置
       const bottomPos = screenHeight - safeAreaBottom - miniPlayerHeight;
       
-      // 计算过渡临界点的绝对位置（距离底部固定距离的位置）
-      const transitionPoint = bottomPos - thresholdPx;
+      // 过渡临界点（距离底部160px的位置）
+      const transitionPoint = bottomPos - 160;
             
       // 设置面板位置
       this.setData({
         topPosition: statusBarHeight + navBarHeight,
         bottomPosition: bottomPos,
         panelPosition: bottomPos,
-        transitionPoint: transitionPoint,
-        transitionRangePx: rangePx
+        transitionPoint: transitionPoint
       });
     }
   },
@@ -90,47 +80,37 @@ Component({
   methods: {
     // 拖动开始
     dragPanelStart(e) {
-      const { changedTouches } = e;
-      if (changedTouches[0]) {
-        const { pageY } = changedTouches[0];
-        this.dragOrigin = pageY;
+      if (e.changedTouches[0]) {
+        this.dragOrigin = e.changedTouches[0].pageY;
       }
       
-      // 设置拖动标志，启用过渡层
       this.setData({
-        isDragging: true,
-        disableAnimated: true
+        isDragging: true
       });
     },
     
     // 拖动结束
     dragPanelEnd(e) {
-      const changedTouches = e.changedTouches;
-      const pageY = changedTouches[0].pageY;
+      const pageY = e.changedTouches[0].pageY;
       const { topPosition, bottomPosition } = this.data;
       
-      // 计算拖动距离
+      // 计算拖动距离和阈值
       const distance = pageY - this.dragOrigin;
-      // 设置判断阈值，屏幕高度的10%
       const threshold = (bottomPosition - topPosition) / 10;
       
-      let finalPosition;
-      
       // 根据当前位置和拖动距离决定最终位置
+      let finalPosition;
       if (this.data.panelPosition === topPosition) {
-        // 如果当前在顶部，向下拖动超过阈值则收起
         finalPosition = distance > threshold ? bottomPosition : topPosition;
       } else {
-        // 如果当前在底部，向上拖动超过阈值则展开
         finalPosition = distance < -threshold ? topPosition : bottomPosition;
       }
       
-      // 设置最终状态，同时禁用过渡层
+      // 设置最终状态
       this.setData({
         panelPosition: finalPosition,
         isExpanded: finalPosition === topPosition,
         isDragging: false,
-        disableAnimated: false,
         presentProgress: finalPosition === topPosition ? 1 : 0
       });
       
@@ -145,7 +125,8 @@ Component({
       
       this.setData({
         panelPosition: newPosition,
-        isExpanded: newPosition === topPosition
+        isExpanded: newPosition === topPosition,
+        presentProgress: newPosition === topPosition ? 1 : 0
       });
       
       // 触发事件通知父组件状态变化
@@ -158,24 +139,21 @@ Component({
       if (!this.data.isDragging) return;
       
       const { y } = e.detail;
-      const { transitionPoint, transitionRangePx } = this.data;
+      const { transitionPoint } = this.data;
       
-      // 计算过渡区间的上下边界
-      const upperBound = transitionPoint - transitionRangePx / 2;
-      const lowerBound = transitionPoint + transitionRangePx / 2;
+      // 过渡区间范围（120px）
+      const transitionRange = 120;
+      const upperBound = transitionPoint - transitionRange / 2;
+      const lowerBound = transitionPoint + transitionRange / 2;
       
-      // 计算平滑过渡的进度值
+      // 计算过渡进度
       let progress;
-      
       if (y <= upperBound) {
-        // 在上边界之上，保持完全显示展开内容
         progress = 1;
       } else if (y >= lowerBound) {
-        // 在下边界之下，保持完全显示迷你内容
         progress = 0;
       } else {
-        // 在过渡区间内，线性计算进度
-        progress = 1 - ((y - upperBound) / transitionRangePx);
+        progress = 1 - ((y - upperBound) / transitionRange);
       }
       
       // 确保进度值在0-1范围内
@@ -185,9 +163,6 @@ Component({
         this.setData({
           presentProgress: roundedProgress
         });
-        
-        // 向父组件报告进度变化
-        this.triggerEvent('progresschange', { progress: roundedProgress });
       }
     }
   }

@@ -20,7 +20,7 @@
     </view>
     
     <!-- 面板内容区 -->
-    <view class="panel-content {{disableAnimated ? '' : 'animated'}} {{isExpanded ? 'expanded' : ''}}">
+    <view class="panel-content">
       <!-- 迷你播放器内容 -->
       <view class="mini-player" hidden="{{isExpanded}}">
         <slot></slot>
