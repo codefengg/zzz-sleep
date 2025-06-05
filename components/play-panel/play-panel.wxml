@@ -21,13 +21,21 @@
     
     <!-- 面板内容区 -->
     <view class="panel-content">
-      <!-- 迷你播放器内容 -->
-      <view class="mini-player" hidden="{{isExpanded}}">
-        <slot></slot>
-      </view>
+      <!-- 非拖拽状态：显示静态内容 -->
+      <block wx:if="{{!isDragging}}">
+        <!-- 迷你播放器内容 -->
+        <view class="mini-player" hidden="{{isExpanded}}">
+          <slot></slot>
+        </view>
+        
+        <!-- 展开后的播放器内容 -->
+        <view class="full-player" hidden="{{!isExpanded}}">
+          <slot name="full-player"></slot>
+        </view>
+      </block>
       
-      <!-- 中间过渡层 - 只在拖动过程中显示 -->
-      <block wx:if="{{isDragging}}">
+      <!-- 拖拽状态：显示过渡层 -->
+      <block wx:else>
         <!-- 迷你播放器淡出层 -->
         <view class="mini-player transition-layer" style="opacity: {{1 - presentProgress}};">
           <slot></slot>
@@ -38,11 +46,6 @@
           <slot name="full-player"></slot>
         </view>
       </block>
-      
-      <!-- 展开后的播放器内容 -->
-      <view class="full-player" hidden="{{!isExpanded}}">
-        <slot name="full-player"></slot>
-      </view>
     </view>
   </movable-view>
 </movable-area> 

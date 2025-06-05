@@ -62,7 +62,7 @@ Component({
       const bottomPos = screenHeight - safeAreaBottom - miniPlayerHeight;
       
       // 过渡临界点（距离底部160px的位置）
-      const transitionPoint = bottomPos - 160;
+      const transitionPoint = bottomPos - 60;
             
       // 设置面板位置
       this.setData({
