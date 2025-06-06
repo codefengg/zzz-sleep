@@ -1,4 +1,5 @@
 {
+  "backgroundColor": "#092f56",
   "usingComponents": {
     "nav-bar": "/components/nav-bar/nav-bar",
     "play-panel": "/components/play-panel/play-panel",
