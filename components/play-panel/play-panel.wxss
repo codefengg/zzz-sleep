@@ -36,7 +36,7 @@
 .arrow {
   height: 8rpx;
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
   width: 64rpx;
 }
 
@@ -49,7 +49,7 @@
   transform: rotate(180deg);
   width: 36rpx;
   background-color: #ffffff;
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
 .arrow-left {

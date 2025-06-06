@@ -51,7 +51,7 @@ Component({
       // 底部安全区高度（源码使用24）
       const safeAreaBottom = isFullScreen ? 24 : 0;
       // 迷你播放器高度（源码计算方式）
-      const miniPlayerHeight = 80 / (375 / systemInfo.windowWidth);
+      const miniPlayerHeight = 100;
       
       // 计算位置（按照源码方式）
       const topPos = statusBarHeight + capsuleBarHeight;
