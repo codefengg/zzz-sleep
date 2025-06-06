@@ -48,12 +48,12 @@ Component({
       
       // 判断是否是全面屏
       const isFullScreen = systemInfo.screenHeight > systemInfo.windowHeight;
-      // 底部安全区高度（源码使用24）
+      // 底部安全区高度
       const safeAreaBottom = isFullScreen ? 24 : 0;
-      // 迷你播放器高度（源码计算方式）
+      // 迷你播放器高度
       const miniPlayerHeight = 100;
       
-      // 计算位置（按照源码方式）
+      // 计算位置
       const topPos = statusBarHeight + capsuleBarHeight;
       const bottomPos = screenHeight - safeAreaBottom - miniPlayerHeight;
       
@@ -77,12 +77,12 @@ Component({
       }
     },
     
-    // 面板位置变化处理 - 对应源码的onPresent方法
+    // 面板位置变化处理
     onPanelChange(e) {
       const { y } = e.detail;
       const { topPosition, bottomPosition } = this.data;
       
-      // 使用源码的progress计算公式
+      // 计算展开进度
       const progress = 1 - parseInt(1000 * ((y - topPosition) / (bottomPosition - topPosition))) / 1000;
       
       if (progress !== this.data.presentProgress) {
@@ -91,7 +91,7 @@ Component({
         });
       }
       
-      // 拖拽时临时禁用动画（源码逻辑）
+      // 拖拽时临时禁用动画
       if (!this.data.disableAnimated) {
         this.setData({
           disableAnimated: true
@@ -101,7 +101,7 @@ Component({
       // 清除之前的恢复定时器
       clearTimeout(this.recoverAnimation);
       
-      // 100ms后恢复动画（源码时间）
+      // 100ms后恢复动画
       this.recoverAnimation = setTimeout(() => {
         this.setData({
           disableAnimated: false
@@ -110,17 +110,17 @@ Component({
       }, 100);
     },
     
-    // 拖动结束 - 对应源码的dragPanelEnd方法
+    // 拖动结束
     dragPanelEnd(e) {
       const pageY = e.changedTouches[0].pageY;
       const { topPosition, bottomPosition } = this.data;
       
       // 计算拖动距离
       const distance = pageY - this.dragOrigin;
-      // 阈值：源码使用(bottomPosition - topPosition) / 10
+      // 阈值
       const threshold = (bottomPosition - topPosition) / 10;
       
-      // 使用源码的决策逻辑
+      // 决定最终位置
       let finalPosition;
       if (this.data.panelPosition === topPosition) {
         // 当前在顶部：向下拖动超过阈值则收起到底部，否则保持顶部
@@ -140,7 +140,7 @@ Component({
       this.triggerEvent('statechange', { isExpanded: this.data.isExpanded });
     },
     
-    // 点击切换面板状态 - 对应源码的presentPanel方法
+    // 点击切换面板状态
     togglePanel() {
       const { panelPosition, topPosition, bottomPosition } = this.data;
       const newPosition = panelPosition === topPosition ? bottomPosition : topPosition;

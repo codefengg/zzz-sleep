@@ -89,7 +89,7 @@
   position: relative;
 }
 
-/* 迷你播放器样式 - 按照源码使用绝对定位 */
+/* 迷你播放器样式 */
 .mini-player {
   height: 100rpx;
   width: 100%;
@@ -102,7 +102,7 @@
   right: 0;
 }
 
-/* 全屏播放器样式 - 按照源码使用绝对定位 */
+/* 全屏播放器样式 */
 .full-player {
   height: 100%;
   width: 100%;
