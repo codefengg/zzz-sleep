@@ -16,7 +16,10 @@
   >
     <!-- 顶部下拉提示条 -->
     <view class="drag-handle {{isExpanded ? 'expanded' : ''}}" catchtap="togglePanel">
-      <view class="drag-bar"></view>
+      <view class="arrow {{presentProgress>0.95?'downward':''}}" style="--progress: {{presentProgress}}">
+        <view class="arrow-left"></view>
+        <view class="arrow-right"></view>
+      </view>
     </view>
     
     <!-- 面板内容区 -->

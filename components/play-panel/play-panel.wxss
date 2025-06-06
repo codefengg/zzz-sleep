@@ -33,17 +33,53 @@
   z-index: 101;
 }
 
-.drag-bar {
-  width: 62rpx;
+.arrow {
   height: 8rpx;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 4rpx;
-  transition: width 0.3s, opacity 0.3s;
+  position: relative;
+  transition: transform 0.3s ease;
+  width: 64rpx;
 }
 
-.drag-handle.expanded .drag-bar {
-  width: 60rpx;
-  opacity: 0.5;
+.arrow-left,
+.arrow-right {
+  border-radius: 4rpx;
+  display: inline-block;
+  height: 8rpx;
+  position: absolute;
+  transform: rotate(180deg);
+  width: 36rpx;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.arrow-left {
+  right: 28rpx;
+}
+
+.arrow-right {
+  left: 28rpx;
+}
+
+/* 使用CSS变量实现平滑过渡 */
+.arrow-left {
+  transform: rotate(calc(180deg + var(--progress, 0) * 20deg));
+}
+
+.arrow-right {
+  transform: rotate(calc(180deg - var(--progress, 0) * 20deg));
+}
+
+/* 当接近完全展开时的最终状态 */
+.downward .arrow-left {
+  transform: rotate(200deg);
+}
+
+.downward .arrow-right {
+  transform: rotate(160deg);
+}
+
+.drag-handle .arrow {
+  opacity: 0.4;
 }
 
 /* 面板内容区 */
