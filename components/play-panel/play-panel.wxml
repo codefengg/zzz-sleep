@@ -24,12 +24,12 @@
     
     <!-- 面板内容区 -->
     <view class="panel-content">
-      <!-- 迷你播放器内容 - 修复过渡效果 -->
-      <view class="mini-player" style="z-index: {{presentProgress > 0.5 ? 0 : 3}}; opacity: {{presentProgress > 0.8 ? 0 : 1 - presentProgress * 1.25}};">
+      <!-- 迷你播放器内容 - 0.4时消失 -->
+      <view class="mini-player" style="z-index: {{presentProgress > 0.4 ? 0 : 3}}; opacity: {{presentProgress > 0.4 ? 0 : 1 - presentProgress * 2.5}};">
         <slot></slot>
       </view>
       
-      <!-- 全屏播放器内容 - 更早开始淡入 -->
+      <!-- 全屏播放器内容 -->
       <view class="full-player" style="opacity: {{presentProgress > 0.2 ? (presentProgress - 0.2) * 1.25 : 0}};">
         <slot name="full-player"></slot>
       </view>
