@@ -32,11 +32,7 @@ Component({
     // 禁用动画标志
     disableAnimated: false,
     // 是否展开
-    isExpanded: false,
-    // 是否正在拖动中
-    isDragging: false,
-    // 过渡临界点的绝对位置
-    transitionPoint: 0
+    isExpanded: false
   },
 
   lifetimes: {
@@ -48,28 +44,24 @@ Component({
       // 获取胶囊按钮位置信息
       const menuButtonInfo = wx.getMenuButtonBoundingClientRect();
       const statusBarHeight = systemInfo.statusBarHeight;
-      const navBarHeight = menuButtonInfo.height + (menuButtonInfo.top - statusBarHeight) * 2;
-      
-      // 计算迷你播放器高度
-      const miniPlayerHeight = 100;
+      const capsuleBarHeight = menuButtonInfo.height + (menuButtonInfo.top - statusBarHeight) * 2;
       
       // 判断是否是全面屏
       const isFullScreen = systemInfo.screenHeight > systemInfo.windowHeight;
-      // 底部安全区高度
-      const safeAreaBottom = isFullScreen ? 34 : 0;
+      // 底部安全区高度（源码使用24）
+      const safeAreaBottom = isFullScreen ? 24 : 0;
+      // 迷你播放器高度（源码计算方式）
+      const miniPlayerHeight = 80 / (375 / systemInfo.windowWidth);
       
-      // 底部位置
+      // 计算位置（按照源码方式）
+      const topPos = statusBarHeight + capsuleBarHeight;
       const bottomPos = screenHeight - safeAreaBottom - miniPlayerHeight;
       
-      // 过渡临界点（距离底部160px的位置）
-      const transitionPoint = bottomPos - 60;
-            
       // 设置面板位置
       this.setData({
-        topPosition: statusBarHeight + navBarHeight,
+        topPosition: topPos,
         bottomPosition: bottomPos,
-        panelPosition: bottomPos,
-        transitionPoint: transitionPoint
+        panelPosition: bottomPos
       });
     }
   },
@@ -83,95 +75,83 @@ Component({
       if (e.changedTouches[0]) {
         this.dragOrigin = e.changedTouches[0].pageY;
       }
-      
-      this.setData({
-        isDragging: true
-      });
     },
     
-    // 拖动结束
+    // 面板位置变化处理 - 对应源码的onPresent方法
+    onPanelChange(e) {
+      const { y } = e.detail;
+      const { topPosition, bottomPosition } = this.data;
+      
+      // 使用源码的progress计算公式
+      const progress = 1 - parseInt(1000 * ((y - topPosition) / (bottomPosition - topPosition))) / 1000;
+      
+      if (progress !== this.data.presentProgress) {
+        this.setData({
+          presentProgress: progress
+        });
+      }
+      
+      // 拖拽时临时禁用动画（源码逻辑）
+      if (!this.data.disableAnimated) {
+        this.setData({
+          disableAnimated: true
+        });
+      }
+      
+      // 清除之前的恢复定时器
+      clearTimeout(this.recoverAnimation);
+      
+      // 100ms后恢复动画（源码时间）
+      this.recoverAnimation = setTimeout(() => {
+        this.setData({
+          disableAnimated: false
+        });
+        this.recoverAnimation = null;
+      }, 100);
+    },
+    
+    // 拖动结束 - 对应源码的dragPanelEnd方法
     dragPanelEnd(e) {
       const pageY = e.changedTouches[0].pageY;
       const { topPosition, bottomPosition } = this.data;
       
-      // 计算拖动距离和阈值
+      // 计算拖动距离
       const distance = pageY - this.dragOrigin;
+      // 阈值：源码使用(bottomPosition - topPosition) / 10
       const threshold = (bottomPosition - topPosition) / 10;
       
-      // 根据当前位置和拖动距离决定最终位置
+      // 使用源码的决策逻辑
       let finalPosition;
       if (this.data.panelPosition === topPosition) {
+        // 当前在顶部：向下拖动超过阈值则收起到底部，否则保持顶部
         finalPosition = distance > threshold ? bottomPosition : topPosition;
       } else {
+        // 当前在底部：向上拖动超过阈值则展开到顶部，否则保持底部
         finalPosition = distance < -threshold ? topPosition : bottomPosition;
       }
       
-      // 只设置位置和状态，不设置presentProgress，让它在动画过程中自然变化
+      // 设置最终位置
       this.setData({
         panelPosition: finalPosition,
         isExpanded: finalPosition === topPosition
       });
       
-      // 延迟关闭拖拽状态，让movable-view动画完成后再切换到静态层
-      setTimeout(() => {
-        this.setData({
-          isDragging: false,
-          // 在动画完成后设置最终的presentProgress值
-          presentProgress: this.data.isExpanded ? 1 : 0
-        });
-      }, 300); // 等待动画完成（通常250-300ms）
-      
       // 触发事件通知父组件状态变化
       this.triggerEvent('statechange', { isExpanded: this.data.isExpanded });
     },
     
-    // 点击切换面板状态
+    // 点击切换面板状态 - 对应源码的presentPanel方法
     togglePanel() {
       const { panelPosition, topPosition, bottomPosition } = this.data;
       const newPosition = panelPosition === topPosition ? bottomPosition : topPosition;
       
       this.setData({
         panelPosition: newPosition,
-        isExpanded: newPosition === topPosition,
-        presentProgress: newPosition === topPosition ? 1 : 0
+        isExpanded: newPosition === topPosition
       });
       
       // 触发事件通知父组件状态变化
       this.triggerEvent('statechange', { isExpanded: this.data.isExpanded });
-    },
-    
-    // 面板位置变化处理
-    onPanelChange(e) {
-      // 如果不是拖动状态，忽略处理
-      if (!this.data.isDragging) return;
-      
-      const { y } = e.detail;
-      const { transitionPoint } = this.data;
-      
-      // 过渡区间范围（120px）
-      const transitionRange = 180;
-      const upperBound = transitionPoint - transitionRange / 2;
-      const lowerBound = transitionPoint + transitionRange / 2;
-      
-      // 计算过渡进度
-      let progress;
-      if (y <= upperBound) {
-        progress = 1;
-      } else if (y >= lowerBound) {
-        progress = 0;
-      } else {
-        progress = 1 - ((y - upperBound) / transitionRange);
-      }
-      
-      // 确保进度值在0-1范围内
-      const roundedProgress = Math.max(0, Math.min(1, progress));
-      
-      // 只在进度确实发生变化时才更新，减少不必要的setData
-      if (Math.abs(roundedProgress - this.data.presentProgress) > 0.01) {
-        this.setData({
-          presentProgress: roundedProgress
-        });
-      }
     }
   }
 }) 

@@ -15,7 +15,7 @@
     style="background-color: {{backgroundColor}}; {{customStyle}}"
   >
     <!-- 顶部下拉提示条 -->
-    <view class="drag-handle {{isExpanded ? 'expanded' : ''}}" catchtap="togglePanel">
+    <view class="drag-handle" catchtap="togglePanel">
       <view class="arrow {{presentProgress>0.95?'downward':''}}" style="--progress: {{presentProgress}}">
         <view class="arrow-left"></view>
         <view class="arrow-right"></view>
@@ -24,31 +24,15 @@
     
     <!-- 面板内容区 -->
     <view class="panel-content">
-      <!-- 非拖拽状态：显示静态内容 -->
-      <block wx:if="{{!isDragging}}">
-        <!-- 迷你播放器内容 -->
-        <view class="mini-player" hidden="{{isExpanded}}">
-          <slot></slot>
-        </view>
-        
-        <!-- 展开后的播放器内容 -->
-        <view class="full-player" hidden="{{!isExpanded}}">
-          <slot name="full-player"></slot>
-        </view>
-      </block>
+      <!-- 迷你播放器内容 - 修复过渡效果 -->
+      <view class="mini-player" style="z-index: {{presentProgress > 0.5 ? 0 : 3}}; opacity: {{presentProgress > 0.8 ? 0 : 1 - presentProgress * 1.25}};">
+        <slot></slot>
+      </view>
       
-      <!-- 拖拽状态：显示过渡层 -->
-      <block wx:else>
-        <!-- 迷你播放器淡出层 -->
-        <view class="mini-player transition-layer" style="opacity: {{1 - presentProgress}};">
-          <slot></slot>
-        </view>
-        
-        <!-- 全屏播放器淡入层 -->
-        <view class="full-player transition-layer" style="opacity: {{presentProgress}};">
-          <slot name="full-player"></slot>
-        </view>
-      </block>
+      <!-- 全屏播放器内容 - 更早开始淡入 -->
+      <view class="full-player" style="opacity: {{presentProgress > 0.2 ? (presentProgress - 0.2) * 1.25 : 0}};">
+        <slot name="full-player"></slot>
+      </view>
     </view>
   </movable-view>
 </movable-area> 

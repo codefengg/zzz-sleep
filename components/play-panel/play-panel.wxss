@@ -89,19 +89,28 @@
   position: relative;
 }
 
-/* 迷你播放器样式 */
+/* 迷你播放器样式 - 按照源码使用绝对定位 */
 .mini-player {
   height: 100rpx;
   width: 100%;
   display: flex;
   align-items: center;
   margin-top: 48rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
-/* 全屏播放器样式 */
+/* 全屏播放器样式 - 按照源码使用绝对定位 */
 .full-player {
   height: 100%;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* 过渡层样式 */
