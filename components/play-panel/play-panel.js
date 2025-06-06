@@ -14,6 +14,11 @@ Component({
     backgroundColor: {
       type: String,
       value: 'rgba(40, 41, 55, 1)'
+    },
+    // 控制面板的显示状态
+    visible: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -23,6 +28,8 @@ Component({
   data: {
     // 面板位置
     panelPosition: 0,
+    // 隐藏位置
+    hiddenPosition: 0,
     // 顶部位置（展开状态）
     topPosition: 0,
     // 底部位置（收起状态）
@@ -54,15 +61,36 @@ Component({
       const miniPlayerHeight = 100;
       
       // 计算位置
+      const hiddenPos = screenHeight + 20; // 隐藏位置（屏幕下方）
       const topPos = statusBarHeight + capsuleBarHeight;
       const bottomPos = screenHeight - safeAreaBottom - miniPlayerHeight;
       
       // 设置面板位置
       this.setData({
+        hiddenPosition: hiddenPos,
         topPosition: topPos,
         bottomPosition: bottomPos,
-        panelPosition: bottomPos
+        panelPosition: this.data.visible ? bottomPos : hiddenPos
       });
+    }
+  },
+
+  observers: {
+    'visible': function(visible) {
+      // 监听visible属性变化
+      if (visible) {
+        // 显示时，切换到底部位置（迷你播放器）
+        this.setData({
+          panelPosition: this.data.bottomPosition,
+          isExpanded: false
+        });
+      } else {
+        // 隐藏时，切换到隐藏位置
+        this.setData({
+          panelPosition: this.data.hiddenPosition,
+          isExpanded: false
+        });
+      }
     }
   },
 
@@ -82,13 +110,16 @@ Component({
       const { y } = e.detail;
       const { topPosition, bottomPosition } = this.data;
       
-      // 计算展开进度
-      const progress = 1 - parseInt(1000 * ((y - topPosition) / (bottomPosition - topPosition))) / 1000;
-      
-      if (progress !== this.data.presentProgress) {
-        this.setData({
-          presentProgress: progress
-        });
+      // 只有visible=true时才计算进度
+      if (this.data.visible) {
+        // 计算展开进度
+        const progress = 1 - parseInt(1000 * ((y - topPosition) / (bottomPosition - topPosition))) / 1000;
+        
+        if (progress !== this.data.presentProgress) {
+          this.setData({
+            presentProgress: progress
+          });
+        }
       }
       
       // 拖拽时临时禁用动画
@@ -112,6 +143,11 @@ Component({
     
     // 拖动结束
     dragPanelEnd(e) {
+      // 如果面板隐藏，不允许拖动
+      if (!this.data.visible) {
+        return;
+      }
+      
       const pageY = e.changedTouches[0].pageY;
       const { topPosition, bottomPosition } = this.data;
       
@@ -142,6 +178,11 @@ Component({
     
     // 点击切换面板状态
     togglePanel() {
+      // 如果面板隐藏，不允许切换
+      if (!this.data.visible) {
+        return;
+      }
+      
       const { panelPosition, topPosition, bottomPosition } = this.data;
       const newPosition = panelPosition === topPosition ? bottomPosition : topPosition;
       

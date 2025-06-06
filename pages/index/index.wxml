@@ -32,9 +32,7 @@
   <play-panel 
     bind:statechange="onPlayerStateChange" 
     bind:progresschange="onPlayerProgressChange"
-    backgroundImage="{{currentMusic.cover}}"
-    themeColor="{{currentMusic.color}}"
-    theme="dark">
+    visible="{{showPlayPanel}}">
     <!-- 迷你播放器内容 -->
     <view class="mini-player-content">
       <!-- 左侧播放区域 -->

@@ -79,7 +79,10 @@ Page({
     currentMusic: {},
     isPlaying: false,
     remainingTime: 30 * 60,
-    formattedTime: '30:00'
+    formattedTime: '30:00',
+    
+    // 控制播放面板显示
+    showPlayPanel: false
   },
   
   onLoad() {
@@ -114,7 +117,9 @@ Page({
       currentMusic: globalData.currentMusic,
       isPlaying: globalData.isPlaying,
       remainingTime: globalData.timer.remaining,
-      formattedTime: app.formatTime(globalData.timer.remaining)
+      formattedTime: app.formatTime(globalData.timer.remaining),
+      // 有音乐信息时显示面板
+      showPlayPanel: !!globalData.currentMusic.id
     });
   },
   
@@ -181,7 +186,8 @@ Page({
       
       // 更新页面数据
       this.setData({
-        currentMusic: audioItem
+        currentMusic: audioItem,
+        showPlayPanel: true // 显示播放面板
       });
     }
   },
