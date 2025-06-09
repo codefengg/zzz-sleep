@@ -6,7 +6,9 @@
     "navigationStyle": "custom",
     "backgroundColor": "#11121D"
   },
-  "requiredBackgroundModes": ["audio"],
+  "requiredBackgroundModes": [
+    "audio"
+  ],
   "style": "v2",
   "sitemapLocation": "sitemap.json"
-} 
+}

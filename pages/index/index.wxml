@@ -28,6 +28,7 @@
       </view>
     </block>
   </view>
+  <view style="width: 100; height: 110px"></view>
   <!-- 使用play-panel组件 -->
   <play-panel 
     bind:statechange="onPlayerStateChange" 
@@ -54,12 +55,12 @@
     <view slot="full-player" class="full-player-content">
       <view class="full-player-cover-container">
         <!-- 原始背景图 -->
-        <image class="full-player-cover-back" src="{{currentMusic.cover || '/assets/mock-back/fine-rain-back.png'}}" mode="aspectFill"></image>
+        <image class="full-player-cover-back" src="{{currentMusic.backgroundImage}}" mode="aspectFill"></image>
         <!-- 模糊层 -->
         <!-- <view class="blur-overlay"></view> -->
       </view>
       <view class="full-player-content-con">
-        <image class="full-player-cover-icon" src="{{currentMusic.icon || '/assets/mock-icons/thunderstorm.png'}}" mode="aspectFit"></image>
+        <image class="full-player-cover-icon" src="{{currentMusic.icon}}" mode="aspectFit"></image>
         <view class="full-player-content-con-text">
           <view class="full-player-content-con-text-title">{{currentMusic.name || '选择音乐开始播放'}}</view>
           <view class="full-player-content-con-text-timer">{{formattedTime}}</view>

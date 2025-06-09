@@ -31,7 +31,14 @@
     "useCompilerPlugins": false,
     "condition": false,
     "swc": false,
-    "disableSWC": true
+    "disableSWC": true,
+    "urlCheck": true,
+    "lazyloadPlaceholderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useStaticServer": true,
+    "showES6CompileOption": false,
+    "checkInvalidKey": true
   },
   "condition": {},
   "editorSetting": {
@@ -40,5 +47,6 @@
   },
   "cloudfunctionRoot": "cloudfunctions/",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
-  "simulatorPluginLibVersion": {}
+  "simulatorPluginLibVersion": {},
+  "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
 }
