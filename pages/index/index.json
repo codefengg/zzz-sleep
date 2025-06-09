@@ -3,6 +3,7 @@
     "nav-bar": "../../components/nav-bar/nav-bar",
     "play-panel": "../../components/play-panel/play-panel",
     "play-toggle": "../../components/play-toggle/play-toggle",
-    "timer-picker": "../../components/timer-picker/index"
+    "timer-picker": "../../components/timer-picker/index",
+    "slide-panel": "../../components/slide-panel/index"
   }
 } 

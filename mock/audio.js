@@ -1,4 +1,4 @@
-{
+module.exports = {
     "audioList": [
         {
             "id": "001",

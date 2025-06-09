@@ -1,0 +1,65 @@
+/* components/slide-panel/index.wxss */
+.slide-panel-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.panel-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.panel-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.panel-wrapper {
+  width: 100%;
+  border-radius: 32rpx 32rpx 0 0;
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.panel-wrapper.no-animation {
+  transition: none;
+}
+
+.drag-handle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48rpx;
+  padding: 16rpx 0;
+}
+
+.drag-indicator {
+  width: 80rpx;
+  height: 8rpx;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4rpx;
+}
+
+.panel-content {
+  flex: 1;
+  overflow: hidden;
+} 

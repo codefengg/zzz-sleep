@@ -284,7 +284,7 @@ Page({
     // console.log('播放器展开进度:', progress);
   },
   
-  // 显示倒计时选择器 - 使用timer-picker组件
+  // 显示倒计时选择器 - 使用play-panel组件
   showTimerPicker() {
     this.setData({
       showTimerModal: true

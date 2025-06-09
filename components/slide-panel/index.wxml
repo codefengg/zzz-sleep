@@ -1,0 +1,33 @@
+<!-- components/slide-panel/index.wxml -->
+<view class="slide-panel-container" wx:if="{{visible}}">
+  <!-- 遮罩层 -->
+  <view class="panel-mask" bindtap="onMaskTap"></view>
+  
+  <!-- 滑动面板区域 -->
+  <movable-area class="panel-area">
+    <movable-view 
+      class="panel-wrapper {{disableAnimated ? 'no-animation' : ''}}"
+      bindchange="onPanelChange" 
+      bindtouchend="dragPanelEnd" 
+      bindtouchstart="dragPanelStart"
+      direction="vertical" 
+      damping="40" 
+      friction="1" 
+      inertia="{{false}}" 
+      outOfBounds="{{false}}" 
+      x="0" 
+      y="{{panelPosition}}"
+      style="background-color: {{backgroundColor}}; height: {{contentHeight}}rpx;"
+    >
+      <!-- 顶部拖拽提示条 -->
+      <view class="drag-handle">
+        <view class="drag-indicator"></view>
+      </view>
+      
+      <!-- 面板内容区 -->
+      <view class="panel-content">
+        <slot></slot>
+      </view>
+    </movable-view>
+  </movable-area>
+</view> 

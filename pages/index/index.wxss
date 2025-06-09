@@ -419,7 +419,7 @@
   /* 后续补充播放器样式 */
 }
 
-/* 倒计时选择器模态框样式 */
+/* 倒计时选择器弹窗样式 */
 .timer-modal {
   position: fixed;
   top: 0;
@@ -428,7 +428,7 @@
   height: 100%;
   z-index: 9999;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 
@@ -443,12 +443,22 @@
 
 .timer-modal-content {
   position: relative;
-  width: 640rpx;
+  width: 702rpx;
   max-height: 80vh;
   background-color: #11121D;
-  border-radius: 32rpx;
+  border-radius: 32rpx 32rpx 0 0;
   overflow: hidden;
-  margin: 0 40rpx;
+  animation: modalSlideUp 0.3s ease-out;
+  margin-bottom: 0;
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .timer-modal-header {
@@ -462,10 +472,10 @@
 .timer-modal-title {
   font-size: 36rpx;
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.timer-modal-close {
+/* .timer-modal-close {
   width: 60rpx;
   height: 60rpx;
   display: flex;
@@ -474,4 +484,12 @@
   font-size: 48rpx;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 300;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+} */
+
+.timer-modal-close:active {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(0.9);
 } 

@@ -68,11 +68,11 @@
     </view>
   </play-panel>
 
-  <!-- 倒计时选择器模态框 -->
+  <!-- 倒计时选择器弹窗 -->
   <view class="timer-modal" wx:if="{{showTimerModal}}">
     <!-- 遮罩层 -->
     <view class="timer-modal-mask" bindtap="hideTimerPicker"></view>
-    <!-- 模态框内容 -->
+    <!-- 弹窗内容 -->
     <view class="timer-modal-content">
       <view class="timer-modal-header">
         <view class="timer-modal-title">设置倒计时</view>

@@ -1,5 +1,6 @@
 .picker-content {
   padding: 32rpx 48rpx 48rpx;
+  /* padding由父容器处理 */
 }
 
 .picker-body {
