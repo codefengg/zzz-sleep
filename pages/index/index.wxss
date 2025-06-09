@@ -70,50 +70,43 @@
 .moon::before {
   content: '';
   position: absolute;
-  width: 124rpx;
-  height: 124rpx;
+  width: 126rpx;
+  height: 126rpx;
   border-radius: 50%;
   background-color: #11121D;
-  animation: moonEclipse 10s infinite linear;
+  animation: moonEclipse 100s infinite linear;
   transform-origin: center center;
   transform: translate(-75%, -75%);
 }
 
 @keyframes moonEclipse {
-  0%, 5% {
-    transform: translate(-75%, -75%);
-  }
-  10% {
-    transform: translate(-70%, -70%);
-  }
-  15% {
-    transform: translate(-65%, -65%);
-  }
-  20% {
-    transform: translate(-60%, -60%);
-  }
-  25% {
-    transform: translate(-55%, -55%);
-  }
-  30% {
-    transform: translate(-50%, -50%);
-  }
-  35% {
-    transform: translate(-45%, -45%);
-  }
-  40% {
-    transform: translate(-40%, -40%);
-  }
-  45% {
-    transform: translate(-35%, -35%);
-  }
-  50% {
-    transform: translate(-30%, -30%);
-  }
-  /* 最大食月状态 - 在此停留50%的时间 */
-  55%, 100% {
-    transform: translate(-25%, -25%);
-  }
+  /* 前10个段：从-75%到-1% (0-45.45%时间) */
+  0% { transform: translate(-75%, -75%); }
+  4.55% { transform: translate(-67.5%, -67.5%); }  /* 第1段 */
+  9.09% { transform: translate(-60%, -60%); }      /* 第2段 */
+  13.64% { transform: translate(-52.5%, -52.5%); } /* 第3段 */
+  18.18% { transform: translate(-45%, -45%); }     /* 第4段 */
+  22.73% { transform: translate(-37.5%, -37.5%); } /* 第5段 */
+  27.27% { transform: translate(-30%, -30%); }     /* 第6段 */
+  31.82% { transform: translate(-22.5%, -22.5%); } /* 第7段 */
+  36.36% { transform: translate(-15%, -15%); }     /* 第8段 */
+  40.91% { transform: translate(-7.5%, -7.5%); }   /* 第9段 */
+  45.45% { transform: translate(-1%, -1%); }       /* 第10段 */
+  
+  /* 停留2个段：在-1%位置保持 (45.45-54.55%时间) */
+  45.45%, 54.55% { transform: translate(-1%, -1%); }
+  
+  /* 后10个段：从-1%回到-75% (54.55-100%时间) */
+  59.09% { transform: translate(-7.5%, -7.5%); }   /* 第13段 */
+  63.64% { transform: translate(-15%, -15%); }     /* 第14段 */
+  68.18% { transform: translate(-22.5%, -22.5%); } /* 第15段 */
+  72.73% { transform: translate(-30%, -30%); }     /* 第16段 */
+  77.27% { transform: translate(-37.5%, -37.5%); } /* 第17段 */
+  81.82% { transform: translate(-45%, -45%); }     /* 第18段 */
+  86.36% { transform: translate(-52.5%, -52.5%); } /* 第19段 */
+  90.91% { transform: translate(-60%, -60%); }     /* 第20段 */
+  95.45% { transform: translate(-67.5%, -67.5%); } /* 第21段 */
+  100% { transform: translate(-75%, -75%); }       /* 第22段 */
 }
 
 .audio-list {
