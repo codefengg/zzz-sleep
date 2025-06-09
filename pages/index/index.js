@@ -82,7 +82,12 @@ Page({
     formattedTime: '30:00',
     
     // 控制播放面板显示
-    showPlayPanel: false
+    showPlayPanel: false,
+    
+    // 添加倒计时选择器相关数据
+    showTimerModal: false,
+    timerOptions: Array.from({length: 24}, (_, i) => (i + 1) * 5), // 5-120分钟，步长5分钟
+    quickTimerOptions: [15, 30, 60] // 快捷选项：15、30、60分钟
   },
   
   onLoad() {
@@ -279,44 +284,63 @@ Page({
     // console.log('播放器展开进度:', progress);
   },
   
-  // 显示倒计时选择器
+  // 显示倒计时选择器 - 使用timer-picker组件
   showTimerPicker() {
-    const timerOptions = [
-      { name: '10分钟', value: 10 * 60 },
-      { name: '15分钟', value: 15 * 60 },
-      { name: '20分钟', value: 20 * 60 },
-      { name: '30分钟', value: 30 * 60 },
-      { name: '45分钟', value: 45 * 60 },
-      { name: '60分钟', value: 60 * 60 },
-      { name: '90分钟', value: 90 * 60 }
-    ];
+    this.setData({
+      showTimerModal: true
+    });
+  },
+  
+  // 隐藏倒计时选择器
+  hideTimerPicker() {
+    this.setData({
+      showTimerModal: false
+    });
+  },
+  
+  // 处理倒计时选择器变化
+  onTimerPickerChange(e) {
+    const minutes = e.detail.value;
+    console.log('倒计时选择器变化:', minutes + '分钟');
+  },
+  
+  // 处理快捷倒计时选择
+  onTimerQuickSelect(e) {
+    const minutes = e.detail.value;
+    console.log('快捷选择倒计时:', minutes + '分钟');
+    this.setTimerDuration(minutes);
+  },
+  
+  // 处理倒计时保存
+  onTimerSave(e) {
+    const minutes = e.detail.value;
+    console.log('保存倒计时设置:', minutes + '分钟');
+    this.setTimerDuration(minutes);
+    this.hideTimerPicker();
+  },
+  
+  // 设置倒计时时长
+  setTimerDuration(minutes) {
+    const seconds = minutes * 60;
     
-    wx.showActionSheet({
-      itemList: timerOptions.map(item => item.name),
-      success: (res) => {
-        const selectedTimer = timerOptions[res.tapIndex];
-        console.log('选择倒计时:', selectedTimer.name);
-        
-        // 更新全局倒计时设置
-        app.globalData.timer.total = selectedTimer.value;
-        app.globalData.timer.remaining = selectedTimer.value;
-        
-        // 更新页面显示
-        this.setData({
-          remainingTime: selectedTimer.value,
-          formattedTime: app.formatTime(selectedTimer.value)
-        });
-        
-        // 如果正在播放，重新开始倒计时
-        if (this.data.isPlaying) {
-          this.startTimer();
-        }
-        
-        wx.showToast({
-          title: `倒计时设置为${selectedTimer.name}`,
-          icon: 'success'
-        });
-      }
+    // 更新全局倒计时设置
+    app.globalData.timer.total = seconds;
+    app.globalData.timer.remaining = seconds;
+    
+    // 更新页面显示
+    this.setData({
+      remainingTime: seconds,
+      formattedTime: app.formatTime(seconds)
+    });
+    
+    // 如果正在播放，重新开始倒计时
+    if (this.data.isPlaying) {
+      this.startTimer();
+    }
+    
+    wx.showToast({
+      title: `倒计时设置为${minutes}分钟`,
+      icon: 'success'
     });
   }
 }); 

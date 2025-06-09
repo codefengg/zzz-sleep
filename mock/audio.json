@@ -3,7 +3,7 @@
         {
             "id": "001",
             "name": "绵绵细雨",
-            "icon": "/assets/mock-icons/fine-rain.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E7%BB%B5%E7%BB%B5%E7%BB%86%E9%9B%A8.png?sign=7e25dcca817502c7cbf514b290ffe874&t=1749458012",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/fine-rain-back.png",
             "audioUrl": ""
@@ -11,7 +11,7 @@
         {
             "id": "002",
             "name": "倾盆大雨",
-            "icon": "/assets/mock-icons/thunderstorm.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E9%9B%B7%E9%9B%A8.png?sign=e21ed74ce161c221ce2a4b800531abd8&t=1749458066",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/thunderstorm-back.png",
             "audioUrl": ""
@@ -19,7 +19,7 @@
         {
             "id": "003",
             "name": "浪花涌动",
-            "icon": "/assets/mock-icons/wave.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E6%B5%AA%E8%8A%B1.png?sign=19fe86d8f875d072a3c7ff028ede570c&t=1749458080",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/wave-back.png",
             "audioUrl": ""
@@ -27,7 +27,7 @@
         {
             "id": "004",
             "name": "篝火燃烧",
-            "icon": "/assets/mock-icons/campfire.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E7%AF%9D%E7%81%AB.png?sign=04d8c2dc95478abf53ebd1b9d16c7659&t=1749458095",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/campfire-back.png",
             "audioUrl": ""
@@ -35,7 +35,7 @@
         {
             "id": "005",
             "name": "稻田乐章",
-            "icon": "/assets/mock-icons/rice-field.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E7%A8%BB%E7%94%B0%E4%B9%90%E7%AB%A0.png?sign=8087b81799b154c811115e1edfeca774&t=1749458106",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/rice-field-back.png",
             "audioUrl": ""
@@ -43,7 +43,7 @@
         {
             "id": "007",
             "name": "风铃撞击",
-            "icon": "/assets/mock-icons/rice-field.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E9%A3%8E%E9%93%83.png?sign=ca21497f37fd33cc5463817eaf5ba02e&t=1749458122",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/rice-field-back.png",
             "audioUrl": ""
@@ -51,7 +51,7 @@
         {
             "id": "008",
             "name": "睡觉的猫",
-            "icon": "/assets/mock-icons/rice-field.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E7%9D%A1%E8%A7%89%E7%8C%AB.png?sign=f2b9bf48c82559c6abcc142d2683cb0e&t=1749458133",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/rice-field-back.png",
             "audioUrl": ""
@@ -59,7 +59,7 @@
         {
             "id": "009",
             "name": "沉睡的狗",
-            "icon": "/assets/mock-icons/rice-field.png",
+            "icon": "https://636c-cloud1-8glt6bb456600701-1349745487.tcb.qcloud.la/icons/%E7%9D%A1%E8%A7%89%E7%8B%97.png?sign=90c6a95ece99d18cce5b7aa1038b11c7&t=1749458144",
             "listImage": "",
             "backgroundImage": "/assets/mock-back/rice-field-back.png",
             "audioUrl": ""

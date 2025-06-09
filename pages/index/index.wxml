@@ -67,4 +67,25 @@
       </view>
     </view>
   </play-panel>
+
+  <!-- 倒计时选择器模态框 -->
+  <view class="timer-modal" wx:if="{{showTimerModal}}">
+    <!-- 遮罩层 -->
+    <view class="timer-modal-mask" bindtap="hideTimerPicker"></view>
+    <!-- 模态框内容 -->
+    <view class="timer-modal-content">
+      <view class="timer-modal-header">
+        <view class="timer-modal-title">设置倒计时</view>
+        <view class="timer-modal-close" bindtap="hideTimerPicker">×</view>
+      </view>
+      <timer-picker
+        timerItems="{{timerOptions}}"
+        quickOptions="{{quickTimerOptions}}"
+        value="{{remainingTime / 60}}"
+        bind:change="onTimerPickerChange"
+        bind:quickselect="onTimerQuickSelect"
+        bind:save="onTimerSave">
+      </timer-picker>
+    </view>
+  </view>
 </view>
