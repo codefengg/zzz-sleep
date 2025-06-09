@@ -19,7 +19,7 @@
     <block wx:for="{{audioList}}" wx:key="id">
       <view class="audio-item" style="width:{{itemWidth}}px;height:{{itemWidth}}px" bindtap="onTapAudioItem" data-id="{{item.id}}">
         <view class="audio-item-inner">
-          <image class="audio-item-bg" src="{{item.backgroundImage || '/assets/default-bg.jpg'}}" mode="aspectFill"></image>
+          <image class="audio-item-bg" src="{{item.listImage}}" mode="aspectFill"></image>
           <view class="audio-item-content">
             <image class="audio-item-icon" src="{{item.icon}}" mode="aspectFit"></image>
             <view class="audio-item-name">{{item.name}}</view>

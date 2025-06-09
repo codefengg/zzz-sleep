@@ -1,3 +1,5 @@
+import audioList from '../../mock/audio.js';
+
 // 获取导航栏高度
 const menuButton = wx.getMenuButtonBoundingClientRect();
 const navBarHeight = menuButton.top + menuButton.height;
@@ -13,59 +15,6 @@ const paddingPx = (48 * 2) / ratio;  // 左右padding换算为px
 const itemSpacePx = 56 / ratio;      // 间距换算为px
 
 itemWidth = (screenWidth - paddingPx - itemSpacePx) / 2;
-
-const audioList = [
-  {
-    "id": "001",
-    "name": "绵绵细雨",
-    "icon": "/assets/mock-icons/fine-rain.png",
-    "listImage": "",
-    "backgroundImage": "/assets/mock-back/fine-rain-back.png",
-    "cover": "/assets/mock-back/fine-rain-back.png",
-    "audioUrl": "https://example.com/rain.mp3",
-    "color": "120,180,220"
-  },
-  {
-    "id": "002",
-    "name": "倾盆大雨",
-    "icon": "/assets/mock-icons/thunderstorm.png",
-    "listImage": "",
-    "backgroundImage": "/assets/mock-back/thunderstorm-back.png",
-    "cover": "/assets/mock-back/thunderstorm-back.png",
-    "audioUrl": "https://example.com/storm.mp3",
-    "color": "80,120,160"
-  },
-  {
-    "id": "003",
-    "name": "浪花涌动",
-    "icon": "/assets/mock-icons/wave.png",
-    "listImage": "",
-    "backgroundImage": "/assets/mock-back/wave-back.png",
-    "cover": "/assets/mock-back/wave-back.png",
-    "audioUrl": "https://example.com/wave.mp3",
-    "color": "60,140,200"
-  },
-  {
-    "id": "004",
-    "name": "篝火燃烧",
-    "icon": "/assets/mock-icons/campfire.png",
-    "listImage": "",
-    "backgroundImage": "/assets/mock-back/campfire-back.png",
-    "cover": "/assets/mock-back/campfire-back.png",
-    "audioUrl": "https://example.com/fire.mp3",
-    "color": "200,120,60"
-  },
-  {
-    "id": "005",
-    "name": "稻田乐章",
-    "icon": "/assets/mock-icons/rice-field.png",
-    "listImage": "",
-    "backgroundImage": "/assets/mock-back/rice-field-back.png",
-    "cover": "/assets/mock-back/rice-field-back.png",
-    "audioUrl": "https://example.com/rice.mp3",
-    "color": "100,160,80"
-  }
-];
 
 const app = getApp();
 
