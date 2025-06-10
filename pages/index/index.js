@@ -36,7 +36,8 @@ Page({
     // 添加倒计时选择器相关数据
     showTimerModal: false,
     timerOptions: Array.from({length: 24}, (_, i) => (i + 1) * 5), // 5-120分钟，步长5分钟
-    quickTimerOptions: [15, 30, 60] // 快捷选项：15、30、60分钟
+    quickTimerOptions: [15, 30, 60], // 快捷选项：15、30、60分钟
+    tempSelectedTime: 30 // 临时选择的倒计时时间（分钟），用于选择器显示
   },
   
   onLoad() {
@@ -73,7 +74,9 @@ Page({
       remainingTime: globalData.timer.remaining,
       formattedTime: app.formatTime(globalData.timer.remaining),
       // 有音乐信息时显示面板
-      showPlayPanel: !!globalData.currentMusic.id
+      showPlayPanel: !!globalData.currentMusic.id,
+      // 同步当前全局倒计时设置到临时选择时间
+      tempSelectedTime: Math.floor(globalData.timer.total / 60)
     });
   },
   
@@ -96,17 +99,29 @@ Page({
     // 停止事件
     this.audioManager.onStop(() => {
       app.setPlayState(false);
-      this.clearTimer();
+      // 只有在倒计时结束时才清除定时器，避免用户手动暂停时清除倒计时
+      if (this.data.remainingTime <= 0) {
+        this.clearTimer();
+      }
       this.setData({ isPlaying: false });
       console.log('音频停止播放');
     });
     
     // 播放结束事件
     this.audioManager.onEnded(() => {
-      app.setPlayState(false);
-      this.clearTimer();
-      this.setData({ isPlaying: false });
       console.log('音频播放完成');
+      // 如果倒计时还在进行，则重新播放音乐（循环播放）
+      if (this.data.remainingTime > 0 && this.data.currentMusic.audioUrl) {
+        console.log('倒计时未结束，继续循环播放');
+        // 重新设置音频源，自动开始播放
+        this.audioManager.src = this.data.currentMusic.audioUrl;
+      } else {
+        // 倒计时结束或没有音乐，停止播放
+        app.setPlayState(false);
+        this.clearTimer();
+        this.setData({ isPlaying: false });
+        console.log('倒计时已结束，停止播放');
+      }
     });
     
     // 播放错误事件
@@ -178,13 +193,13 @@ Page({
   
   // 启动倒计时
   startTimer() {
-    // 重置倒计时
-    app.resetTimer();
-    
     // 清除之前的定时器
     this.clearTimer();
     
     const timer = app.globalData.timer;
+    
+    // 每次播放新音乐时，都重置倒计时为全局设置的时间
+    timer.remaining = timer.total;
     
     // 启动新的定时器
     timer.timerId = setInterval(() => {
@@ -201,11 +216,6 @@ Page({
         console.log('倒计时结束，停止播放');
         this.audioManager.stop();
         this.clearTimer();
-        
-        wx.showToast({
-          title: '倒计时结束',
-          icon: 'success'
-        });
       }
     }, 1000);
     
@@ -224,19 +234,20 @@ Page({
   // 处理播放器状态变化
   onPlayerStateChange(e) {
     const { isExpanded } = e.detail;
-    console.log('播放器状态变化:', isExpanded ? '已展开' : '已收起');
   },
   
   // 处理播放器进度变化
   onPlayerProgressChange(e) {
     const { progress } = e.detail;
-    // console.log('播放器展开进度:', progress);
   },
   
   // 显示倒计时选择器 - 使用play-panel组件
   showTimerPicker() {
+    // 显示选择器时，将当前全局倒计时时间作为临时选择时间
+    const currentMinutes = Math.floor(app.globalData.timer.total / 60);
     this.setData({
-      showTimerModal: true
+      showTimerModal: true,
+      tempSelectedTime: currentMinutes
     });
   },
   
@@ -250,20 +261,25 @@ Page({
   // 处理倒计时选择器变化
   onTimerPickerChange(e) {
     const minutes = e.detail.value;
-    console.log('倒计时选择器变化:', minutes + '分钟');
+    // 只更新临时选择时间，不设置全局时间
+    this.setData({
+      tempSelectedTime: minutes
+    });
   },
   
   // 处理快捷倒计时选择
   onTimerQuickSelect(e) {
     const minutes = e.detail.value;
-    console.log('快捷选择倒计时:', minutes + '分钟');
-    this.setTimerDuration(minutes);
+    // 只更新临时选择时间，不立即设置全局时间
+    this.setData({
+      tempSelectedTime: minutes
+    });
   },
   
   // 处理倒计时保存
   onTimerSave(e) {
-    const minutes = e.detail.value;
-    console.log('保存倒计时设置:', minutes + '分钟');
+    // 使用临时选择的时间
+    const minutes = this.data.tempSelectedTime;
     this.setTimerDuration(minutes);
     this.hideTimerPicker();
   },
@@ -271,25 +287,22 @@ Page({
   // 设置倒计时时长
   setTimerDuration(minutes) {
     const seconds = minutes * 60;
-    
+        
     // 更新全局倒计时设置
     app.globalData.timer.total = seconds;
+    
+    // 立即重置剩余时间为新设置的时间
     app.globalData.timer.remaining = seconds;
     
-    // 更新页面显示
-    this.setData({
-      remainingTime: seconds,
-      formattedTime: app.formatTime(seconds)
-    });
-    
-    // 如果正在播放，重新开始倒计时
+    // 如果正在播放音乐，重新启动倒计时
     if (this.data.isPlaying) {
       this.startTimer();
     }
     
-    wx.showToast({
-      title: `倒计时设置为${minutes}分钟`,
-      icon: 'success'
+    // 始终更新页面显示的倒计时设置信息
+    this.setData({
+      remainingTime: app.globalData.timer.remaining,
+      formattedTime: app.formatTime(app.globalData.timer.remaining)
     });
   }
 }); 

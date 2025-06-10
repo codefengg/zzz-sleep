@@ -82,7 +82,7 @@
       <timer-picker
         timerItems="{{timerOptions}}"
         quickOptions="{{quickTimerOptions}}"
-        value="{{remainingTime / 60}}"
+        value="{{tempSelectedTime}}"
         bind:change="onTimerPickerChange"
         bind:quickselect="onTimerQuickSelect"
         bind:save="onTimerSave">
