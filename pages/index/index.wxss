@@ -335,7 +335,7 @@
 
 .full-player-name {
   font-size: 40rpx;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: bold;
 }
 
@@ -374,7 +374,7 @@
 }
 
 .control-button.play-button {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
   width: 120rpx;
   height: 120rpx;
 }
@@ -393,7 +393,7 @@
   height: 0;
   border-style: solid;
   border-width: 12rpx 20rpx 12rpx 0;
-  border-color: transparent rgba(255, 255, 255, 0.9) transparent transparent;
+  border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
 }
 
 .next-button::before {
@@ -406,7 +406,7 @@
   height: 0;
   border-style: solid;
   border-width: 12rpx 0 12rpx 20rpx;
-  border-color: transparent transparent transparent rgba(255, 255, 255, 0.9);
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
 }
 
 .player-section {
@@ -439,6 +439,37 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.timer-modal-mask.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.timer-modal-mask.fade-out {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+.timer-modal-close{
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .timer-modal-content {
   position: relative;
   width: 702rpx;
@@ -446,8 +477,15 @@
   background-color: #11121D;
   border-radius: 32rpx 32rpx 0 0;
   overflow: hidden;
-  animation: modalSlideUp 0.3s ease-out;
   margin-bottom: 0;
+}
+
+.timer-modal-content.slide-up {
+  animation: modalSlideUp 0.3s ease-out forwards;
+}
+
+.timer-modal-content.slide-down {
+  animation: modalSlideDown 0.3s ease-in forwards;
 }
 
 @keyframes modalSlideUp {
@@ -456,6 +494,15 @@
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes modalSlideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
   }
 }
 
@@ -469,7 +516,7 @@
 
 .timer-modal-title {
   font-size: 36rpx;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 600;
 }
 

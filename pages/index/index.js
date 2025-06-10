@@ -35,6 +35,7 @@ Page({
     
     // 添加倒计时选择器相关数据
     showTimerModal: false,
+    timerModalAnimating: false, // 控制弹窗动画状态
     timerOptions: Array.from({length: 24}, (_, i) => (i + 1) * 5), // 5-120分钟，步长5分钟
     quickTimerOptions: [15, 30, 60], // 快捷选项：15、30、60分钟
     tempSelectedTime: 30 // 临时选择的倒计时时间（分钟），用于选择器显示
@@ -333,15 +334,24 @@ Page({
     const currentMinutes = Math.floor(app.globalData.timer.total / 60);
     this.setData({
       showTimerModal: true,
+      timerModalAnimating: true, // 开始显示动画
       tempSelectedTime: currentMinutes
     });
   },
   
   // 隐藏倒计时选择器
   hideTimerPicker() {
+    // 先播放关闭动画
     this.setData({
-      showTimerModal: false
+      timerModalAnimating: false
     });
+    
+    // 动画结束后隐藏弹窗
+    setTimeout(() => {
+      this.setData({
+        showTimerModal: false
+      });
+    }, 300); // 与CSS动画时长保持一致
   },
   
   // 处理倒计时选择器变化

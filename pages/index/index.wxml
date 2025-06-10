@@ -72,12 +72,12 @@
   <!-- 倒计时选择器弹窗 -->
   <view class="timer-modal" wx:if="{{showTimerModal}}">
     <!-- 遮罩层 -->
-    <view class="timer-modal-mask" bindtap="hideTimerPicker"></view>
+    <view class="timer-modal-mask {{timerModalAnimating ? 'fade-in' : 'fade-out'}}" bindtap="hideTimerPicker"></view>
     <!-- 弹窗内容 -->
-    <view class="timer-modal-content">
+    <view class="timer-modal-content {{timerModalAnimating ? 'slide-up' : 'slide-down'}}">
       <view class="timer-modal-header">
         <view class="timer-modal-title">设置倒计时</view>
-        <!-- <view class="timer-modal-close" bindtap="hideTimerPicker">×</view> -->
+        <view class="timer-modal-close" bindtap="hideTimerPicker">取消</view>
       </view>
       <timer-picker
         timerItems="{{timerOptions}}"
