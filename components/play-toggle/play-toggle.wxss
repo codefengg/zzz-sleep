@@ -21,3 +21,24 @@
   /* 暂时添加一点变化以区分播放状态 */
   opacity: 0.7;
 } 
+
+.pauseing{
+  margin-left: 6rpx;
+}
+
+.playing{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playing-line{
+  width: 8rpx;
+  height: 32rpx;
+  border-radius: 2rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.marR{
+  margin-right: 6rpx;
+}

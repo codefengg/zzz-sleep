@@ -58,7 +58,7 @@ Component({
       // 底部安全区高度
       const safeAreaBottom = isFullScreen ? 24 : 0;
       // 迷你播放器高度
-      const miniPlayerHeight = 100;
+      const miniPlayerHeight = 110;
       
       // 计算位置
       const hiddenPos = screenHeight + 20; // 隐藏位置（屏幕下方）
