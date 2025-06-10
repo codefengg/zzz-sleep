@@ -77,7 +77,7 @@
     <view class="timer-modal-content">
       <view class="timer-modal-header">
         <view class="timer-modal-title">设置倒计时</view>
-        <view class="timer-modal-close" bindtap="hideTimerPicker">×</view>
+        <!-- <view class="timer-modal-close" bindtap="hideTimerPicker">×</view> -->
       </view>
       <timer-picker
         timerItems="{{timerOptions}}"

@@ -86,6 +86,10 @@ Page({
     this.audioManager.onPlay(() => {
       app.setPlayState(true);
       this.setData({ isPlaying: true });
+      // 恢复播放时，如果有剩余时间且没有定时器在运行，则启动倒计时
+      if (app.globalData.timer.remaining > 0 && !app.globalData.timer.timerId) {
+        this.resumeTimer();
+      }
       console.log('音频开始播放');
     });
     
@@ -93,6 +97,8 @@ Page({
     this.audioManager.onPause(() => {
       app.setPlayState(false);
       this.setData({ isPlaying: false });
+      // 暂停播放时，暂停倒计时
+      this.pauseTimer();
       console.log('音频暂停播放');
     });
     
@@ -119,7 +125,22 @@ Page({
         // 倒计时结束或没有音乐，停止播放
         app.setPlayState(false);
         this.clearTimer();
-        this.setData({ isPlaying: false });
+        
+        // 清除当前播放的音乐信息
+        app.setCurrentMusic({
+          id: null,
+          name: '选择音乐开始播放',
+          cover: '',
+          audioUrl: '',
+          color: '64,158,255'
+        });
+        
+        // 更新页面显示，隐藏播放面板
+        this.setData({ 
+          isPlaying: false,
+          currentMusic: app.globalData.currentMusic,
+          showPlayPanel: false
+        });
         console.log('倒计时已结束，停止播放');
       }
     });
@@ -216,6 +237,21 @@ Page({
         console.log('倒计时结束，停止播放');
         this.audioManager.stop();
         this.clearTimer();
+        
+        // 清除当前播放的音乐信息
+        app.setCurrentMusic({
+          id: null,
+          name: '选择音乐开始播放',
+          cover: '',
+          audioUrl: '',
+          color: '64,158,255'
+        });
+        
+        // 更新页面显示，隐藏播放面板
+        this.setData({
+          currentMusic: app.globalData.currentMusic,
+          showPlayPanel: false
+        });
       }
     }, 1000);
     
@@ -229,6 +265,56 @@ Page({
       clearInterval(timer.timerId);
       timer.timerId = null;
     }
+  },
+
+  // 暂停倒计时
+  pauseTimer() {
+    const timer = app.globalData.timer;
+    if (timer.timerId) {
+      clearInterval(timer.timerId);
+      timer.timerId = null;
+      console.log('倒计时已暂停');
+    }
+  },
+
+  // 恢复倒计时
+  resumeTimer() {
+    const timer = app.globalData.timer;
+    
+    // 启动倒计时定时器
+    timer.timerId = setInterval(() => {
+      timer.remaining--;
+      
+      // 更新页面显示
+      this.setData({
+        remainingTime: timer.remaining,
+        formattedTime: app.formatTime(timer.remaining)
+      });
+      
+      // 倒计时结束
+      if (timer.remaining <= 0) {
+        console.log('倒计时结束，停止播放');
+        this.audioManager.stop();
+        this.clearTimer();
+        
+        // 清除当前播放的音乐信息
+        app.setCurrentMusic({
+          id: null,
+          name: '选择音乐开始播放',
+          cover: '',
+          audioUrl: '',
+          color: '64,158,255'
+        });
+        
+        // 更新页面显示，隐藏播放面板
+        this.setData({
+          currentMusic: app.globalData.currentMusic,
+          showPlayPanel: false
+        });
+      }
+    }, 1000);
+    
+    console.log('倒计时已恢复:', app.formatTime(timer.remaining));
   },
   
   // 处理播放器状态变化
