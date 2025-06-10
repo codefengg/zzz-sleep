@@ -57,7 +57,7 @@
         <!-- 原始背景图 -->
         <image class="full-player-cover-back" src="{{currentMusic.backgroundImage}}" mode="aspectFill"></image>
         <!-- 模糊层 -->
-        <!-- <view class="blur-overlay"></view> -->
+        <view class="blur-overlay"></view>
       </view>
       <view class="full-player-content-con">
         <image class="full-player-cover-icon" src="{{currentMusic.icon}}" mode="aspectFit"></image>
