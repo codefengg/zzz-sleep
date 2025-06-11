@@ -538,3 +538,31 @@
   background: rgba(255, 255, 255, 0.2);
   transform: scale(0.9);
 } 
+
+.full-player-content-con-timer{
+  width: 248rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  border: 3rpx solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(11.2px);
+  background: rgba(255, 255, 255, 0.06);
+  position: absolute;
+  left: 50%;
+  bottom: 356rpx;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.full-player-content-con-timer-icon{
+  width: 44rpx;
+  height: 50rpx;
+  margin-right: 24rpx;
+}
+
+.full-player-content-con-timer-title{
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.8);
+}

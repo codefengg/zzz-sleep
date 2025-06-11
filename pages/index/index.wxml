@@ -66,6 +66,10 @@
           <view class="full-player-content-con-text-timer">{{formattedTime}}</view>
         </view>
       </view>
+      <view class="full-player-content-con-timer" bindtap="showTimerPicker">
+        <image class="full-player-content-con-timer-icon" src="/assets/union.png" mode="aspectFit"></image>
+        <view class="full-player-content-con-timer-title">定时器</view>
+      </view>
     </view>
   </play-panel>
 
