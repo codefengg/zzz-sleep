@@ -8,11 +8,15 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .play-icon {
   width: 44rpx;
   height: 34rpx;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 /* 播放状态的样式 - 暂时使用相同图标，后续可以添加不同样式 */
@@ -30,6 +34,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .playing-line{
@@ -37,6 +43,8 @@
   height: 32rpx;
   border-radius: 2rpx;
   background-color: rgba(255, 255, 255, 0.8);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .marR{

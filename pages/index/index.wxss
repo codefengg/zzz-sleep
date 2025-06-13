@@ -110,7 +110,7 @@
 }
 
 .audio-list {
-  margin-top: 60rpx;
+  margin-top: 132rpx;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -156,7 +156,7 @@
 }
 
 .audio-item-name {
-  font-size: 36rpx;
+  font-size: 34rpx;
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
   font-weight: 500;

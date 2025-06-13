@@ -1,12 +1,12 @@
 <!-- components/play-toggle/play-toggle.wxml -->
 <view class="play-toggle-container" style="{{customStyle}}" bindtap="togglePlay">
-  <view class="playing" wx:if="{{playing}}">
+  <view class="playing" hidden="{{!_localPlaying}}">
     <view class="playing-line marR"></view>
     <view class="playing-line"></view>
   </view>
   <image
-    wx:else
-    class="play-icon pauseing {{playing ? 'playing' : ''}}" 
+    hidden="{{_localPlaying}}"
+    class="play-icon pauseing" 
     src="/assets/polygon.png" 
     mode="aspectFit"
   ></image>
