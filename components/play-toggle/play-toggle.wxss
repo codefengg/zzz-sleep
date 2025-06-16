@@ -1,7 +1,7 @@
 /* components/play-toggle/play-toggle.wxss */
 .play-toggle-container {
-  width: 98rpx;
-  height: 98rpx;
+  width: 96rpx;
+  height: 96rpx;
   border-radius: 50%;
   border: 6rpx solid rgba(255, 255, 255, 0.8);
   display: flex;

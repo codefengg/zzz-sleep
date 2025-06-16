@@ -95,7 +95,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: 48rpx;
+  margin-top: 38rpx;
   position: absolute;
   top: 0;
   left: 0;
@@ -124,7 +124,7 @@
 
 /* 确保过渡层迷你播放器的样式与普通迷你播放器一致 */
 .mini-player.transition-layer {
-  margin-top: 48rpx;
+  margin-top: 38rpx;
 }
 
 /* 全屏播放器过渡层 */
