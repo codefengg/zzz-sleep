@@ -20,7 +20,8 @@ App({
     },
     
     // 音频管理器
-    backgroundAudioManager: null
+    backgroundAudioManager: null,
+    versionCode: "0",
   },
 
   onLaunch() {
@@ -29,8 +30,18 @@ App({
     
     // 设置音频管理器基本信息
     const audioManager = this.globalData.backgroundAudioManager;
-    audioManager.epname = '助眠音乐';
-    audioManager.singer = 'ZZZ睡眠';
+    audioManager.epname = '白噪音';
+    audioManager.singer = 'ZZZ';
+
+    // 初始化云环境
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+    } else {
+      wx.cloud.init({
+        env: 'cloud1-8glt6bb456600701',
+        traceUser: true,
+      });
+    }
   },
   
   // 设置当前播放音乐
