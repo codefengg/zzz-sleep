@@ -66,6 +66,7 @@ Page({
       this.setData({
         versionEnable: res.result.data.versionEnable
       });
+      console.group(`✅ versionEnable: ${res.result.data.versionEnable}`);
     } catch (err) {
       console.error('获取版本状态失败:', err);
       this.setData({ versionEnable: true });
@@ -189,8 +190,10 @@ Page({
       // 更新全局数据
       app.setCurrentMusic(audioItem);
 
-      // 播放音乐
-      this.playMusic(audioItem);
+      if(this.data.versionEnable){
+        // 播放音乐
+        this.playMusic(audioItem);
+      }
 
       // 启动倒计时
       this.startTimer();

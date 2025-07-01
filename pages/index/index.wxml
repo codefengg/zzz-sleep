@@ -39,7 +39,7 @@
       <!-- 左侧播放区域 -->
       <view class="mini-player-left">
         <!-- 播放/暂停按钮 -->
-        <play-toggle playing="{{isPlaying}}" bind:toggle="togglePlay"></play-toggle>
+        <play-toggle wx:if="{{versionEnable}}" playing="{{isPlaying}}" bind:toggle="togglePlay"></play-toggle>
         <!-- 音频信息 -->
         <view class="mini-player-info">
           <view class="mini-player-name">{{currentMusic.name || '选择音乐开始播放'}}</view>
@@ -64,6 +64,7 @@
         <view class="full-player-content-con-text">
           <view class="full-player-content-con-text-title">{{currentMusic.name || '选择音乐开始播放'}}</view>
           <view class="full-player-content-con-text-timer">{{formattedTime}}</view>
+          <view wx:if="{{!versionEnable}}" class="full-player-content-con-text-tips">倒计时结束会提醒您该睡觉了哦～</view>
         </view>
       </view>
       <view class="full-player-content-con-timer" bindtap="showTimerPicker">
