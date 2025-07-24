@@ -110,7 +110,7 @@
 }
 
 .audio-list {
-  margin-top: 132rpx;
+  margin-top: 24rpx;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -586,4 +586,39 @@
 .full-player-content-con-timer-title{
   font-size: 32rpx;
   color: rgba(255, 255, 255, 0.8);
+}
+
+.share-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 68rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.date-container{
+  display: flex;
+  align-items: center;
+}
+
+.date-text{
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.share-icon{
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 18rpx;
+}
+
+.sicon{
+  width: 22rpx;
+  height: 28rpx;
+  margin-right: 4rpx;
 }

@@ -14,6 +14,10 @@
       <view class="moon"></view>
     </view>
   </view>
+  <view class="share-container">
+    <view class="date-text">7月24日·六月三十</view>
+    <image src="/assets/sharebutton.png" class="share-icon" mode="aspectFit"></image>
+  </view>
   <!-- 音频列表区 -->
   <view class="audio-list">
     <block wx:for="{{audioList}}" wx:key="id">
@@ -30,10 +34,7 @@
   </view>
   <view style="width: 100; height: 110px"></view>
   <!-- 使用play-panel组件 -->
-  <play-panel 
-    bind:statechange="onPlayerStateChange" 
-    bind:progresschange="onPlayerProgressChange"
-    visible="{{showPlayPanel}}">
+  <play-panel bind:statechange="onPlayerStateChange" bind:progresschange="onPlayerProgressChange" visible="{{showPlayPanel}}">
     <!-- 迷你播放器内容 -->
     <view class="mini-player-content">
       <!-- 左侧播放区域 -->
@@ -62,9 +63,13 @@
       <view class="full-player-content-con">
         <image class="full-player-cover-icon" src="{{currentMusic.icon}}" mode="aspectFit"></image>
         <view class="full-player-content-con-text">
-          <view class="full-player-content-con-text-title">{{currentMusic.name || '选择音乐开始播放'}}</view>
+          <view class="full-player-content-con-text-title">
+            {{currentMusic.name || '选择音乐开始播放'}}
+          </view>
           <view class="full-player-content-con-text-timer">{{formattedTime}}</view>
-          <view wx:if="{{!versionEnable}}" class="full-player-content-con-text-tips">倒计时结束会提醒您该睡觉了哦～</view>
+          <view wx:if="{{!versionEnable}}" class="full-player-content-con-text-tips">
+            倒计时结束会提醒您该睡觉了哦～
+          </view>
         </view>
       </view>
       <view class="full-player-content-con-timer" bindtap="showTimerPicker">
@@ -73,7 +78,6 @@
       </view>
     </view>
   </play-panel>
-
   <!-- 倒计时选择器弹窗 -->
   <view class="timer-modal" wx:if="{{showTimerModal}}">
     <!-- 遮罩层 -->
@@ -84,14 +88,7 @@
         <view class="timer-modal-title">设置倒计时</view>
         <view class="timer-modal-close" bindtap="hideTimerPicker">取消</view>
       </view>
-      <timer-picker
-        timerItems="{{timerOptions}}"
-        quickOptions="{{quickTimerOptions}}"
-        value="{{tempSelectedTime}}"
-        bind:change="onTimerPickerChange"
-        bind:quickselect="onTimerQuickSelect"
-        bind:save="onTimerSave">
-      </timer-picker>
+      <timer-picker timerItems="{{timerOptions}}" quickOptions="{{quickTimerOptions}}" value="{{tempSelectedTime}}" bind:change="onTimerPickerChange" bind:quickselect="onTimerQuickSelect" bind:save="onTimerSave"></timer-picker>
     </view>
   </view>
 </view>
