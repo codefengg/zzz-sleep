@@ -15,8 +15,10 @@
     </view>
   </view>
   <view class="share-container">
-    <view class="date-text">7月24日·六月三十</view>
-    <image src="/assets/sharebutton.png" class="share-icon" mode="aspectFit"></image>
+    <view class="date-text">{{dateText}}</view>
+    <button open-type="share" class="share-btn" style="background: none; border: none; padding: 0; margin: 0; width: auto">
+      <image src="/assets/sharebutton.png" class="share-icon" mode="aspectFit"></image>
+    </button>
   </view>
   <!-- 音频列表区 -->
   <view class="audio-list">

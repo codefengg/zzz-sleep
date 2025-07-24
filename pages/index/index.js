@@ -1,5 +1,6 @@
 import audioList from '../../mock/audio.js';
 const cloudHelper = require('../../utils/cloudHelper');
+import { Lunar } from 'lunar-javascript';
 
 // 获取导航栏高度
 const menuButton = wx.getMenuButtonBoundingClientRect();
@@ -41,6 +42,7 @@ Page({
     quickTimerOptions: [15, 30, 60], // 快捷选项：15、30、60分钟
     tempSelectedTime: 30, // 临时选择的倒计时时间（分钟），用于选择器显示
     versionEnable: true,
+    dateText: '',
   },
 
   onLoad() {
@@ -55,6 +57,9 @@ Page({
 
     // 调用云函数获取版本状态
     this.getVersionEnable();
+    this.setData({
+      dateText: this.getDateText()
+    });
   },
 
   // 获取版本启用状态
@@ -94,6 +99,13 @@ Page({
       path: '/pages/index/index',
       imageUrl: '/assets/shareimage.png'
     };
+  },
+
+  onShareTap() {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
   },
 
   // 同步全局数据到页面
@@ -432,5 +444,16 @@ Page({
       remainingTime: app.globalData.timer.remaining,
       formattedTime: app.formatTime(app.globalData.timer.remaining)
     });
+  },
+  getDateText() {
+    const now = new Date();
+    // 阳历
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    // 阴历
+    const lunar = Lunar.fromDate(now);
+    const lunarMonth = lunar.getMonthInChinese();
+    const lunarDay = lunar.getDayInChinese();
+    return `${month}月${day}日·${lunarMonth}${lunarDay}`;
   }
 }); 
