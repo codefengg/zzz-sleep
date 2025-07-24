@@ -1,3 +1,15 @@
 page {
     background: #000;
 }
+/* 隐藏默认的选中横线 */
+.wx-picker-view-content::before,
+.wx-picker-view-content::after {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* 修改选中区域的样式 */
+.wx-picker-view-content .wx-picker-view-indicator {
+  border-top: none !important;
+  border-bottom: none !important;
+}

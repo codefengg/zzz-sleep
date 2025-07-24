@@ -88,3 +88,14 @@
   background: rgba(255, 255, 255, 0.3);
   transform: scale(0.98);
 } 
+.custom-indicator {
+  border-top: none !important;
+  border-bottom: none !important;
+  height: 40px; /* 调整选中区域高度（可选） */
+  background-color: transparent !important; /* 可选：去掉背景色 */
+}
+
+/* 隐藏默认的上下横线 */
+.custom-indicator::before, .custom-indicator::after {
+  display: none !important;
+}
