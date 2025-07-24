@@ -17,7 +17,7 @@
   <!-- 音频列表区 -->
   <view class="audio-list">
     <block wx:for="{{audioList}}" wx:key="id">
-      <view class="audio-item" style="width:{{itemWidth}}px;height:{{itemWidth}}px" bindtap="onTapAudioItem" data-id="{{item.id}}">
+      <view class="audio-item {{currentMusic.id === item.id ? 'audio-item-selected' : ''}}" style="width:{{itemWidth}}px;height:{{itemWidth}}px" bindtap="onTapAudioItem" data-id="{{item.id}}">
         <view class="audio-item-inner">
           <image class="audio-item-bg" src="{{item.listImage}}" mode="aspectFill"></image>
           <view class="audio-item-content">

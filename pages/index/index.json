@@ -4,5 +4,7 @@
     "play-panel": "../../components/play-panel/play-panel",
     "play-toggle": "../../components/play-toggle/play-toggle",
     "timer-picker": "../../components/timer-picker/index"
-  }
+  },
+  "navigationBarTitleText": "睡眠",
+  "enableShareAppMessage": true
 } 

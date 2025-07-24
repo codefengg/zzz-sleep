@@ -87,6 +87,15 @@ Page({
     // 页面隐藏时不清理定时器，保持后台运行
   },
 
+  // 转发功能
+  onShareAppMessage() {
+    return {
+      title: '今夜，让大自然哄你入睡',
+      path: '/pages/index/index',
+      imageUrl: '/assets/shareimage.png'
+    };
+  },
+
   // 同步全局数据到页面
   syncGlobalData() {
     const globalData = app.globalData;
@@ -210,7 +219,7 @@ Page({
   playMusic(musicData) {
     // 设置音频信息
     this.audioManager.title = musicData.name;
-    this.audioManager.singer = 'ZZZ睡眠助手';
+    this.audioManager.singer = '解压白噪音';
     this.audioManager.coverImgUrl = musicData.cover;
 
     // 设置音频源，会自动开始播放
