@@ -95,7 +95,7 @@ Page({
   // 转发功能
   onShareAppMessage() {
     return {
-      title: '今夜，让大自然哄你入睡',
+      title: '听，世界为你按下静音键',
       path: '/pages/index/index',
       imageUrl: '/assets/shareimage.png'
     };

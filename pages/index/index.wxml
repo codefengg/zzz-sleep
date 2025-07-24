@@ -17,7 +17,9 @@
   <view class="share-container">
     <view class="date-text">{{dateText}}</view>
     <button open-type="share" class="share-btn" style="background: none; border: none; padding: 0; margin: 0; width: auto">
-      <image src="/assets/sharebutton.png" class="share-icon" mode="aspectFit"></image>
+      <view class="share-icon-con">
+        <image src="/assets/shareedit.png" class="share-icon" mode="aspectFit"></image>
+      </view>
     </button>
   </view>
   <!-- 音频列表区 -->

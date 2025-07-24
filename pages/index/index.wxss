@@ -608,6 +608,17 @@
 }
 
 .share-icon{
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.sicon{
+  width: 22rpx;
+  height: 28rpx;
+  margin-right: 4rpx;
+}
+
+.share-icon-con{
   width: 48rpx;
   height: 48rpx;
   display: flex;
@@ -615,10 +626,4 @@
   align-items: center;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 18rpx;
-}
-
-.sicon{
-  width: 22rpx;
-  height: 28rpx;
-  margin-right: 4rpx;
 }
