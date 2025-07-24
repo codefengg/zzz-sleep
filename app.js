@@ -21,7 +21,7 @@ App({
     
     // 音频管理器
     backgroundAudioManager: null,
-    versionCode: "0",
+    versionCode: "1",
   },
 
   onLaunch() {
